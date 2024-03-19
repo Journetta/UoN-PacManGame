@@ -78,28 +78,35 @@ const playerMouth = player.querySelector('.mouth');
 let playerTop = 0;
 let playerLeft = 0;
 
-setInterval(function() {
-    if(downPressed) {
+
+
+document.addEventListener('keydown', keyDown);
+document.addEventListener('keyup', keyUp);
+
+
+function GameStarts() {
+  document.getElementById("GameStarter").style.display = 'none';
+  setInterval(function () {
+    if (downPressed) {
         playerTop++;
         player.style.top = playerTop + 'px';
         playerMouth.classList = 'down';
     }
-    else if(upPressed) {
+    else if (upPressed) {
         playerTop--;
         player.style.top = playerTop + 'px';
         playerMouth.classList = 'up';
     }
-    else if(leftPressed) {
+    else if (leftPressed) {
         playerLeft--;
         player.style.left = playerLeft + 'px';
         playerMouth.classList = 'left';
     }
-    else if(rightPressed) {
+    else if (rightPressed) {
         playerLeft++;
         player.style.left = playerLeft + 'px';
         playerMouth.classList = 'right';
     }
 }, 10);
+}
 
-document.addEventListener('keydown', keyDown);
-document.addEventListener('keyup', keyUp);
