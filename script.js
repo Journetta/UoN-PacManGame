@@ -8,14 +8,14 @@ const main = document.querySelector('main');
 //Player = 2, Wall = 1, Enemy = 3, Point = 0
 let maze = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 2, 0, 1, 0, 0, 0, 0, 3, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 2, 0, 0, 0, 0, 0, 0, 3, 1],
+    [1, 0, 0, 1, 0, 0, 0, 1, 0, 1],
+    [1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
     [1, 0, 1, 1, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
-    [1, 0, 0, 1, 0, 3, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-    [1, 3, 1, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 1, 0, 1, 0, 0, 0, 1, 0, 1],
+    [1, 3, 0, 0, 0, 0, 0, 1, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 
@@ -85,28 +85,42 @@ document.addEventListener('keyup', keyUp);
 
 
 function GameStarts() {
-  document.getElementById("GameStarter").style.display = 'none';
-  setInterval(function () {
-    if (downPressed) {
-        playerTop++;
-        player.style.top = playerTop + 'px';
-        playerMouth.classList = 'down';
-    }
-    else if (upPressed) {
-        playerTop--;
-        player.style.top = playerTop + 'px';
-        playerMouth.classList = 'up';
-    }
-    else if (leftPressed) {
-        playerLeft--;
-        player.style.left = playerLeft + 'px';
-        playerMouth.classList = 'left';
-    }
-    else if (rightPressed) {
-        playerLeft++;
-        player.style.left = playerLeft + 'px';
-        playerMouth.classList = 'right';
-    }
-}, 10);
+    document.getElementById("GameStarter").style.display = 'none';
+    setInterval(function () {
+        // below is equivilent to downPressed == true
+        if (downPressed) {
+            // below is equivilent to playerTop + 1
+            playerTop++;
+            player.style.top = playerTop + 'px';
+            playerMouth.classList = 'down';
+        }
+        else if (upPressed) {
+            playerTop--;
+            player.style.top = playerTop + 'px';
+            playerMouth.classList = 'up';
+        }
+        else if (leftPressed) {
+            playerLeft--;
+            player.style.left = playerLeft + 'px';
+            playerMouth.classList = 'left';
+        }
+        else if (rightPressed) {
+            playerLeft++;
+            player.style.left = playerLeft + 'px';
+            playerMouth.classList = 'right';
+        }
+    }, 10);
 }
 
+console.log('The height of the screen = ' + window.innerHeight);
+console.log('The Width of the Screen is =' + window.innerWidth);
+
+
+
+// dead animation? idk
+player.classList.add(dead);
+setTimeout() player.classList.remove(dead);
+classList.add(GAMEOVER);
+
+
+//parseFloat() turns string into text.
