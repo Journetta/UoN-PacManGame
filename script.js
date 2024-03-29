@@ -6,6 +6,7 @@ let rightPressed = false;
 const main = document.querySelector('main');
 
 //Player = 2, Wall = 1, Enemy = 3, Point = 0
+//10 by 10 maze
 let maze = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 2, 0, 0, 0, 0, 0, 0, 3, 1],
@@ -77,8 +78,7 @@ const player = document.querySelector('#player');
 const playerMouth = player.querySelector('.mouth');
 let playerTop = 0;
 let playerLeft = 0;
-
-
+const wall = document.querySelector('.wall');
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
@@ -112,15 +112,33 @@ function GameStarts() {
     }, 10);
 }
 
+
+function Barrier() {
+    if (wall = 10);
+    clearInterval();
+}
+
 console.log('The height of the screen = ' + window.innerHeight);
 console.log('The Width of the Screen is =' + window.innerWidth);
+width = window.innerWidth;
+height = window.innerHeight;
+let playerpos = player.getBoundingClientRect();
+let wallpos = wall.getBoundingClientRect();
+console.log(wallpos);
+console.log(playerpos);
 
 
+function collision() {
+    if (
+        playerpos = wallpos
+    )
+    console.log('done')
+}
 
 // dead animation? idk
-player.classList.add(dead);
-setTimeout() player.classList.remove(dead);
-classList.add(GAMEOVER);
+//player.classList.add(dead);
+//setTimeout() player.classList.remove(dead);
+//classList.add(GAMEOVER);
 
 
 //parseFloat() turns string into text.
