@@ -89,9 +89,18 @@ function GameStarts() {
     setInterval(function () {
         // below is equivilent to downPressed == true
         if (downPressed) {
+            let position = player.getBoundingClientRect()
+            let newBottom = position.bottom + 1;
+
+            let btmL = document.elementFromPoint(position.left, newBottom);
+            let btmR = document.elementFromPoint(position.right, newBottom);
+
             // below is equivilent to playerTop + 1
-            playerTop++;
-            player.style.top = playerTop + 'px';
+            if (btmL.classList.contains('wall') == false && btmR.classList.contains('wall') == false) {
+                playerTop++;
+                player.style.top = playerTop + 'px';
+            }
+
             playerMouth.classList = 'down';
         }
         else if (upPressed) {
@@ -112,28 +121,12 @@ function GameStarts() {
     }, 10);
 }
 
-
-function Barrier() {
-    if (wall = 10);
-    clearInterval();
-}
-
 console.log('The height of the screen = ' + window.innerHeight);
 console.log('The Width of the Screen is =' + window.innerWidth);
 width = window.innerWidth;
 height = window.innerHeight;
-let playerpos = player.getBoundingClientRect();
-let wallpos = wall.getBoundingClientRect();
 console.log(wallpos);
 console.log(playerpos);
-
-
-function collision() {
-    if (
-        playerpos = wallpos
-    )
-    console.log('done')
-}
 
 // dead animation? idk
 //player.classList.add(dead);
