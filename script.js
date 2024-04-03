@@ -100,19 +100,35 @@ function GameStarts() {
                 playerTop++;
                 player.style.top = playerTop + 'px';
             }
-
             playerMouth.classList = 'down';
         }
         else if (upPressed) {
+            let position = player.getBoundingClientRect();
+            let newTop = position.top - 1;
+
+            let topL = document.elementFromPoint(position.top, newTop);
+            let topR = document.elementFromPoint(position.top, newTop);
+
+            if (topL.classList.contains('wall') == false && topR.classList.contains('wall') == false) {
             playerTop--;
             player.style.top = playerTop + 'px';
+            }
+
             playerMouth.classList = 'up';
-        }
+    }
         else if (leftPressed) {
+            let position = player.getBoundingClientRect();
+            let newLeft = position.left - 1;
+
+            let leftL = document.elementFromPoint(position.left, newLeft);
+            let leftR = document.elementFromPoint(position.left, newLeft);
+
+            if (leftL.classList.contains('wall') == false && leftR.classlist.contains('wall') == false) {
             playerLeft--;
             player.style.left = playerLeft + 'px';
-            playerMouth.classList = 'left';
         }
+        playerMouth.classlist = 'left';
+    }
         else if (rightPressed) {
             playerLeft++;
             player.style.left = playerLeft + 'px';
