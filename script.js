@@ -181,7 +181,7 @@ setInterval(function () {
     timer++;
     totaltimer = timer + "s";
     time.firstChild.nodeValue = totaltimer;
-}, 1000) 
+}, 1000)
 
 
 console.log('The height of the screen = ' + window.innerHeight);
