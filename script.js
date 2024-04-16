@@ -87,10 +87,11 @@ document.addEventListener('keyup', keyUp);
 function GameStarts() {
     document.getElementById("GameStarter").style.display = 'none';
     setInterval(function () {
+
+        const position = player.getBoundingClientRect();
         // below is equivilent to downPressed == true
         if (downPressed) {
             GainPoint();
-            let position = player.getBoundingClientRect();
             let newBottom = position.bottom + 1;
 
             let btmL = document.elementFromPoint(position.left, newBottom);
@@ -105,9 +106,7 @@ function GameStarts() {
         }
         else if (upPressed) {
             GainPoint();
-            let position = player.getBoundingClientRect();
             let newTop = position.top - 1;
-
             let topL = document.elementFromPoint(position.left, newTop);
             let topR = document.elementFromPoint(position.right, newTop);
 
@@ -119,34 +118,30 @@ function GameStarts() {
         }
         else if (leftPressed) {
             GainPoint();
-            //let position = player.getBoundingClientRect();
-           // let newLeft = position.left - 1;
+            let newLeft = position.top - 1;
+            let lefL = document.elementFromPoint(position.left, newLeft);
+            let lefR = document.elementFromPoint(position.left, newLeft);
 
-            //let lefL = document.elementFromPoint(position.left, newLeft);
-            //let lefR = document.elementFromPoint(position.right, newLeft);
-
-           // if (lefL.classList.contains('wall') == false && lefR.classlist.contains('wall') == false) {
+            if (lefL.classList.contains('wall') == false && lefR.classList.contains('wall') == false) {
             playerLeft--;
             player.style.left = playerLeft + 'px';
-            //}
+            }
             playerMouth.classlist = 'left';
         }
         else if (rightPressed) {
             GainPoint();
-            //let position = player.getBoundingClientRect();
-            //let newRight= position.right + 1;
-
-            //let ritL = document.elementFromPoint(position.left, newRight);
-            //let ritR = document.elementFromPoint(position.right, newRight);
+            let newRight = position.top - 1;
+            let ritL = document.elementFromPoint(position.right, newRight);
+            let ritR = document.elementFromPoint(position.right, newRight);
 
             // below is equivilent to playerTop + 1
-            //if (ritL.classList.contains('wall') == false && ritR.classList.contains('wall') == false) {
+            if (ritL.classList.contains('wall') == false && ritR.classList.contains('wall') == false) {
             playerLeft++;
             player.style.left = playerLeft + 'px';
-           // }
+            }
             playerMouth.classlist = 'left';
         }   
-    }, 10);
+    } ,10);
 }
 
 function GainPoint() {
