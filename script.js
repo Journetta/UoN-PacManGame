@@ -83,11 +83,9 @@ const wall = document.querySelector('.wall');
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 
-
 function GameStarts() {
     document.getElementById("GameStarter").style.display = 'none';
     setInterval(function () {
-
         const position = player.getBoundingClientRect();
         // below is equivilent to downPressed == true
         if (downPressed) {
@@ -111,8 +109,8 @@ function GameStarts() {
             let topR = document.elementFromPoint(position.right, newTop);
 
             if (topL.classList.contains('wall') == false && topR.classList.contains('wall') == false) {
-            playerTop--;
-            player.style.top = playerTop + 'px';
+                playerTop--;
+                player.style.top = playerTop + 'px';
             }
             playerMouth.classList = 'up';
         }
@@ -123,8 +121,8 @@ function GameStarts() {
             let lefR = document.elementFromPoint(position.left, newLeft);
 
             if (lefL.classList.contains('wall') == false && lefR.classList.contains('wall') == false) {
-            playerLeft--;
-            player.style.left = playerLeft + 'px';
+                playerLeft--;
+                player.style.left = playerLeft + 'px';
             }
             playerMouth.classlist = 'left';
         }
@@ -136,31 +134,55 @@ function GameStarts() {
 
             // below is equivilent to playerTop + 1
             if (ritL.classList.contains('wall') == false && ritR.classList.contains('wall') == false) {
-            playerLeft++;
-            player.style.left = playerLeft + 'px';
+                playerLeft++;
+                player.style.left = playerLeft + 'px';
             }
-            playerMouth.classlist = 'left';
-        }   
-    } ,10);
+            playerMouth.classlist = 'right';
+        }
+    }, 10);
 }
+
+let tp = 0;
+let wingame = 6;
+let timer = 0;
 
 function GainPoint() {
-   const position = player.getBoundingClientRect();
-   const points = document.querySelectorAll('.point');
-   let score = document.querySelector("currentscore");
+    const position = player.getBoundingClientRect();
+    let score = document.querySelector(".currentscore");
+    const points = document.querySelectorAll('.point');
     for (let i = 0; i < points.length; i++) {
-    let pointPosition = points[i].getBoundingClientRect();
+        let pointPosition = points[i].getBoundingClientRect();
 
-    if (
-        position.right > pointPosition.left &&
-        position.left < pointPosition.right &&
-        position.bottom > pointPosition.top &&
-        position.top < pointPosition.bottom
-    ) {
-        points[i].style.height = '0';
+        if (
+            position.right > pointPosition.left &&
+            position.left < pointPosition.right &&
+            position.bottom > pointPosition.top &&
+            position.top < pointPosition.bottom
+        ) {
+            tp++;
+            score.firstChild.nodeValue = tp;
+            points[i].classList.remove("point");
+            wingame--;
+        }
+    }
+    if (tp == 40) {
+        h1 = document.getElementById("TT");
+        setTimeout(function () {
+            console.log('win');
+            document.getElementById("GameStarter").style.display = 'flex';
+            h1.firstChild.nodeValue = "Game Win";
+        }, 500)
     }
 }
-}
+
+
+setInterval(function () {
+    const time = document.getElementById('currenttime');
+    timer++;
+    totaltimer = timer + "s";
+    time.firstChild.nodeValue = totaltimer;
+}, 1000) 
+
 
 console.log('The height of the screen = ' + window.innerHeight);
 console.log('The Width of the Screen is =' + window.innerWidth);
