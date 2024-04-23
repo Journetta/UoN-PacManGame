@@ -52,6 +52,13 @@ header {
     margin-left: 10px;
 }
 
+.startDiv h2 {
+    text-shadow: 2px 2px 2px #000;
+	font-size: 2em;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
 header h1 {
     font-size: 4em;
 }

@@ -84,6 +84,7 @@ document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 
 function GameStarts() {
+    console.log("Game Start! was pressed");
     document.getElementById("GameStarter").style.display = 'none';
     setInterval(function () {
         const time = document.getElementById('currenttime');
@@ -96,6 +97,7 @@ function GameStarts() {
         // below is equivilent to downPressed == true
         if (downPressed) {
             GainPoint();
+            Killer();
             let newBottom = position.bottom + 1;
 
             let btmL = document.elementFromPoint(position.left, newBottom);
@@ -110,6 +112,7 @@ function GameStarts() {
         }
         else if (upPressed) {
             GainPoint();
+            Killer();
             let newTop = position.top - 1;
             let topL = document.elementFromPoint(position.left, newTop);
             let topR = document.elementFromPoint(position.right, newTop);
@@ -122,6 +125,7 @@ function GameStarts() {
         }
         else if (leftPressed) {
             GainPoint();
+            Killer();
             let newLeft = position.left - 1;
             let lefL = document.elementFromPoint(newLeft, position.bottom);
             let lefR = document.elementFromPoint(newLeft, position.top);
@@ -134,6 +138,7 @@ function GameStarts() {
         }
         else if (rightPressed) {
             GainPoint();
+            Killer();
             let newRight = position.right - 1;
             let ritL = document.elementFromPoint(newRight, position.bottom);
             let ritR = document.elementFromPoint(newRight, position.top);
@@ -165,6 +170,7 @@ function GainPoint() {
             position.bottom > pointPosition.top &&
             position.top < pointPosition.bottom
         ) {
+            console.log("+1 Point");
             tp++;
             score.firstChild.nodeValue = tp;
             points[i].classList.remove("point");
@@ -172,6 +178,7 @@ function GainPoint() {
         }
     }
     if (tp == 40) {
+        console.log("40 Points! Gained!");
         h1 = document.getElementById("TT");
         setTimeout(function () {
             console.log('win');
@@ -185,10 +192,94 @@ console.log('The Width of the Screen is =' + window.innerWidth);
 width = window.innerWidth;
 height = window.innerHeight;
 
-// dead animation? idk
-//player.classList.add(dead);
-//setTimeout() player.classList.remove(dead);
-//classList.add(GAMEOVER);
+
+deaths = 0
+
+function Killer() {
+    const position = player.getBoundingClientRect();
+    const enemy = document.querySelectorAll('.enemy');
+    for (let i = 0; i < enemy.length; i++) {
+        let enemyPosition = enemy[i].getBoundingClientRect();
+        if (
+            position.right > enemyPosition.left &&
+            position.left < enemyPosition.right &&
+            position.bottom > enemyPosition.top &&
+            position.top < enemyPosition.bottom
+        ) {
+            setTimeout(function () {
+                deaths++;
+            }, 200)
+        }
+        if (deaths > 10) {
+            Lost1();
+        }
+        if (deaths > 50) {
+            Lost2();
+        }
+        if (deaths > 80) {
+            LostAll();
+            Refresh();
+    }
+}
+}
+
+let hasBeenCalled = false;
+let Lost1Life = false;
+let Lost2Life = false;
+let Lost3Life = false;
 
 
-//parseFloat() turns string into text.
+function Lost1() {
+    if (Lost1Life ==false) {
+    Lost1Life = true;
+    document.getElementById("1").style.display = "none";
+    console.log("2 Lives Left!");
+}
+}
+
+function Lost2() {
+    if (Lost2Life ==false) {
+    Lost2Life = true;
+    document.getElementById("2").style.display = "none";
+    console.log("1 Life Left!");
+}
+}
+
+function LostAll() {
+    if (Lost3Life ==false) {
+    Lost3Life = true;
+    document.getElementById("3").style.display = "none";
+    console.log("you Died!");
+    LIFETAG = document.getElementById("livestag");
+    LIFETAG.firstChild.nodeValue = "DEAD";
+    LIFETAG.style.color = "red";
+}
+}
+
+
+function Refresh() {
+        if (hasBeenCalled == false) {
+            hasBeenCalled = true;
+            h1 = document.getElementById("gameover");
+            start = document.getElementById("TT");
+            document.getElementById("GameStarter").style.display = 'flex';
+            start.firstChild.nodeValue = "‎";
+            h1.firstChild.nodeValue = "Game Over!";
+            console.log("Showing GameOver Screen");
+            console.log("Score: " + tp);
+            console.log("Time: " + timer + "s");
+            setTimeout(function () {
+            if (confirm("Score: " + tp + " Time: " + timer + "s | " + "Would you like to refresh?") == true) {
+                console.log("Refreshing!");
+                location.reload();
+            } else {
+                console.log("fine dont refresh");
+                h1 = document.getElementById("gameover");
+                h1.firstChild.nodeValue = "Game Over! Press F5 to Refresh";
+            }
+
+            
+            },
+             500);
+}
+}

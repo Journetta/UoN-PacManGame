@@ -19,9 +19,10 @@
     </header>
 
     <div class="startDiv">
-        <div class="start" id="GameStarter" onclick="GameStarts()">
+        <div class="start" id="GameStarter">
             <img src="images/icon.png" alt="logo">
-            <h1 id="TT">Start</h1>
+            <h1 id="TT" onclick="GameStarts()">Start</h1>
+            <h1 id="gameover">‎</h1>
         </div>
     </div>
 
@@ -42,11 +43,11 @@
     </main>
 
     <div class="lives">
-        <h1>Lives:</h1>
+        <h1 id="livestag">Lives:</h1>
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li id="1"></li>
+            <li id="2"></li>
+            <li id="3"></li>
         </ul>
     </div>
 
