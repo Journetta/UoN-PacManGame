@@ -122,9 +122,9 @@ function GameStarts() {
         }
         else if (leftPressed) {
             GainPoint();
-            let newLeft = position.top - 1;
-            let lefL = document.elementFromPoint(position.left, newLeft);
-            let lefR = document.elementFromPoint(position.left, newLeft);
+            let newLeft = position.left - 1;
+            let lefL = document.elementFromPoint(newLeft, position.bottom);
+            let lefR = document.elementFromPoint(newLeft, position.top);
 
             if (lefL.classList.contains('wall') == false && lefR.classList.contains('wall') == false) {
                 playerLeft--;
@@ -134,9 +134,9 @@ function GameStarts() {
         }
         else if (rightPressed) {
             GainPoint();
-            let newRight = position.top - 1;
-            let ritL = document.elementFromPoint(position.right, newRight);
-            let ritR = document.elementFromPoint(position.right, newRight);
+            let newRight = position.right - 1;
+            let ritL = document.elementFromPoint(newRight, position.bottom);
+            let ritR = document.elementFromPoint(newRight, position.top);
 
             // below is equivilent to playerTop + 1
             if (ritL.classList.contains('wall') == false && ritR.classList.contains('wall') == false) {
