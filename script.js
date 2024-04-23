@@ -86,6 +86,12 @@ document.addEventListener('keyup', keyUp);
 function GameStarts() {
     document.getElementById("GameStarter").style.display = 'none';
     setInterval(function () {
+        const time = document.getElementById('currenttime');
+        timer++;
+        totaltimer = timer + "s";
+        time.firstChild.nodeValue = totaltimer;
+    }, 1000)
+    setInterval(function () {
         const position = player.getBoundingClientRect();
         // below is equivilent to downPressed == true
         if (downPressed) {
@@ -174,16 +180,6 @@ function GainPoint() {
         }, 500)
     }
 }
-
-
-setInterval(function () {
-    const time = document.getElementById('currenttime');
-    timer++;
-    totaltimer = timer + "s";
-    time.firstChild.nodeValue = totaltimer;
-}, 1000)
-
-
 console.log('The height of the screen = ' + window.innerHeight);
 console.log('The Width of the Screen is =' + window.innerWidth);
 width = window.innerWidth;
