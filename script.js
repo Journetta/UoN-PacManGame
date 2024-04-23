@@ -20,7 +20,7 @@ let maze = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 
-//Populates the maze in the HTML
+// Populates the maze in the HTML.
 for (let y of maze) {
     for (let x of y) {
         let block = document.createElement('div');
