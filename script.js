@@ -193,6 +193,10 @@ function GainPoint() {
             document.removeEventListener('keydown', keyDown);
             // stops the timer
             clearInterval(clock);
+            upPressed = false;
+            downPressed = false;
+            leftPressed = false;
+            rightPressed = false;
         }, 500)
     }
 }
@@ -265,6 +269,10 @@ function LostAll() {
         // stops the timer
         clearInterval(clock);
         document.removeEventListener('keydown', keyDown);
+        let upPressed = false;
+        downPressed = false;
+        leftPressed = false;
+        rightPressed = false;
     }
 }
 
