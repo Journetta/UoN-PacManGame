@@ -264,6 +264,7 @@ function LostAll() {
         LIFETAG.style.color = "red";
         // stops the timer
         clearInterval(clock);
+        document.removeEventListener('keydown', keyDown);
     }
 }
 
