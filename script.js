@@ -190,6 +190,7 @@ function GainPoint() {
             console.log("Score: " + tp);
             console.log("Time: " + timer + "s");
             score.firstChild.nodeValue = ("Win!");
+            document.removeEventListener('keydown', keyDown);
             // stops the timer
             clearInterval(clock);
         }, 500)
