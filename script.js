@@ -256,7 +256,7 @@ function LostAll() {
 }
 }
 
-
+// Javascript to ask the user if they would like to refresh after a gameover. 
 function Refresh() {
         if (hasBeenCalled == false) {
             hasBeenCalled = true;
