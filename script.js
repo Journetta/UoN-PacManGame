@@ -86,7 +86,7 @@ document.addEventListener('keyup', keyUp);
 function GameStarts() {
     console.log("Game Start! was pressed");
     document.getElementById("GameStarter").style.display = 'none';
-    setInterval(function () {
+    clock = setInterval(function () {
         const time = document.getElementById('currenttime');
         timer++;
         totaltimer = timer + "s";
@@ -182,8 +182,16 @@ function GainPoint() {
         h1 = document.getElementById("TT");
         setTimeout(function () {
             console.log('win');
+            h1 = document.getElementById("gameover");
+            start = document.getElementById("TT");
             document.getElementById("GameStarter").style.display = 'flex';
-            h1.firstChild.nodeValue = "Game Win";
+            start.firstChild.nodeValue = "‎";
+            h1.firstChild.nodeValue = "Game Win!";
+            console.log("Score: " + tp);
+            console.log("Time: " + timer + "s");
+            score.firstChild.nodeValue = ("Win!");
+            // stops the timer
+            clearInterval(clock);
         }, 500)
     }
 }
@@ -219,8 +227,8 @@ function Killer() {
         if (deaths > 80) {
             LostAll();
             Refresh();
+        }
     }
-}
 }
 
 let hasBeenCalled = false;
@@ -230,45 +238,47 @@ let Lost3Life = false;
 
 
 function Lost1() {
-    if (Lost1Life ==false) {
-    Lost1Life = true;
-    document.getElementById("1").style.display = "none";
-    console.log("2 Lives Left!");
-}
+    if (Lost1Life == false) {
+        Lost1Life = true;
+        document.getElementById("1").style.display = "none";
+        console.log("2 Lives Left!");
+    }
 }
 
 function Lost2() {
-    if (Lost2Life ==false) {
-    Lost2Life = true;
-    document.getElementById("2").style.display = "none";
-    console.log("1 Life Left!");
-}
+    if (Lost2Life == false) {
+        Lost2Life = true;
+        document.getElementById("2").style.display = "none";
+        console.log("1 Life Left!");
+    }
 }
 
 function LostAll() {
-    if (Lost3Life ==false) {
-    Lost3Life = true;
-    document.getElementById("3").style.display = "none";
-    console.log("you Died!");
-    LIFETAG = document.getElementById("livestag");
-    LIFETAG.firstChild.nodeValue = "DEAD";
-    LIFETAG.style.color = "red";
-}
+    if (Lost3Life == false) {
+        Lost3Life = true;
+        document.getElementById("3").style.display = "none";
+        console.log("you Died!");
+        LIFETAG = document.getElementById("livestag");
+        LIFETAG.firstChild.nodeValue = "DEAD";
+        LIFETAG.style.color = "red";
+        // stops the timer
+        clearInterval(clock);
+    }
 }
 
 // Javascript to ask the user if they would like to refresh after a gameover. 
 function Refresh() {
-        if (hasBeenCalled == false) {
-            hasBeenCalled = true;
-            h1 = document.getElementById("gameover");
-            start = document.getElementById("TT");
-            document.getElementById("GameStarter").style.display = 'flex';
-            start.firstChild.nodeValue = "‎";
-            h1.firstChild.nodeValue = "Game Over!";
-            console.log("Showing GameOver Screen");
-            console.log("Score: " + tp);
-            console.log("Time: " + timer + "s");
-            setTimeout(function () {
+    if (hasBeenCalled == false) {
+        hasBeenCalled = true;
+        h1 = document.getElementById("gameover");
+        start = document.getElementById("TT");
+        document.getElementById("GameStarter").style.display = 'flex';
+        start.firstChild.nodeValue = "‎";
+        h1.firstChild.nodeValue = "Game Over!";
+        console.log("Showing GameOver Screen");
+        console.log("Score: " + tp);
+        console.log("Time: " + timer + "s");
+        setTimeout(function () {
             if (confirm("Score: " + tp + " Time: " + timer + "s | " + "Would you like to refresh?") == true) {
                 console.log("Refreshing!");
                 location.reload();
@@ -278,8 +288,8 @@ function Refresh() {
                 h1.firstChild.nodeValue = "Game Over! Press F5 to Refresh";
             }
 
-            
-            },
-             500);
-}
+
+        },
+            500);
+    }
 }
