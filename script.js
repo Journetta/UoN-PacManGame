@@ -3,20 +3,40 @@ let downPressed = false;
 let leftPressed = false;
 let rightPressed = false;
 
+
+let r1 = Math.round(Math.random() * 1);
+let r2 = Math.round(Math.random() * 1);
+let r3 = Math.round(Math.random() * 1);
+let r4 = Math.round(Math.random() * 1);
+let r5 = Math.round(Math.random() * 1);
+let r6 = Math.round(Math.random() * 1);
+let r7 = Math.round(Math.random() * 1);
+let r8 = Math.round(Math.random() * 1);
+let r9 = Math.round(Math.random() * 1);
+let r10 = Math.round(Math.random() * 1);
+let r11 = Math.round(Math.random() * 1);
+let r12 = Math.round(Math.random() * 1);
+let r13 = Math.round(Math.random() * 1);
+let r14 = Math.round(Math.random() * 1);
+let r15 = Math.round(Math.random() * 1);
+let r16 = Math.round(Math.random() * 1);
+
+
+
 const main = document.querySelector('main');
 
 //Player = 2, Wall = 1, Enemy = 3, Point = 0
 //10 by 10 maze
 let maze = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 2, 0, 0, 0, 0, 0, 0, 3, 1],
-    [1, 0, 0, 1, 0, 0, 0, 1, 0, 1],
-    [1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
-    [1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-    [1, 1, 0, 1, 0, 0, 0, 1, 0, 1],
-    [1, 3, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 2, 0, 0, 0, r16, 0, 0, 3, 1],
+    [1, 0, 0, r1, 0, 0, 0, r14, r15, 1],
+    [1, 0, 0, 0, r2, 0, 0, 0, 0, 1],
+    [1, 0, r4, r3, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, r5, r6, 1],
+    [1, 0, 0, r7, 0, 0, 0, 0, 0, 1],
+    [1, r8, 0, r9, 0, r11, 0, r12, 0, 1],
+    [1, 3, 0, r10, 0, r2, 0, r13, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 
