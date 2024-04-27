@@ -359,8 +359,6 @@ function invertColor(hexColor) {
     // Convert inverted RGB values back to hexadecimal
     const invertedHexColor = `#${invertedR.toString(16).padStart(2, '0')}${invertedG.toString(16).padStart(2, '0')}${invertedB.toString(16).padStart(2, '0')}`;
 
-    // Apply the inverted color to your desired element
-    // For example:
     enemyColour[0].style.backgroundColor = invertedHexColor;
     enemyColour[1].style.backgroundColor = invertedHexColor;
 }
