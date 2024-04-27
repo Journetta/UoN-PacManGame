@@ -303,3 +303,59 @@ function Refresh() {
             500);
     }
 }
+
+
+
+
+// The Rainbow Machine - With help from w3schools
+
+const colorPicker = document.getElementById('colorPicker');
+const playercolour = document.querySelector('#player');
+const life1 = document.getElementById('1');
+const life2 = document.getElementById('2');
+const life3 = document.getElementById('3');
+const enemyColour = document.querySelectorAll('.enemy');
+
+colorPicker.addEventListener('input', () => {
+  const selectedColor = colorPicker.value;
+  playercolour.style.backgroundColor = selectedColor;
+  life1.style.backgroundColor = selectedColor;
+  life2.style.backgroundColor = selectedColor;
+  life3.style.backgroundColor = selectedColor;
+  invertColor(selectedColor);
+});
+
+function invertColor(hexColor) {
+    // Convert hexadecimal color to RGB
+    const r = parseInt(hexColor.slice(1, 3), 16);
+    const g = parseInt(hexColor.slice(3, 5), 16);
+    const b = parseInt(hexColor.slice(5, 7), 16);
+
+    // Invert the RGB values
+    const invertedR = 255 - r;
+    const invertedG = 255 - g;
+    const invertedB = 255 - b;
+
+        // Convert inverted RGB values back to hexadecimal
+        const invertedHexColor = `#${invertedR.toString(16).padStart(2, '0')}${invertedG.toString(16).padStart(2, '0')}${invertedB.toString(16).padStart(2, '0')}`;
+
+        // Apply the inverted color to your desired element
+        // For example:
+        enemyColour[0].style.backgroundColor = invertedHexColor;
+        enemyColour[1].style.backgroundColor = invertedHexColor;
+    }
+
+    
+function resetPlayerPosition() {
+    // Find the initial position of the player (value 2 in the maze array)
+    for (let row = 0; row < maze.length; row++) {
+        for (let col = 0; col < maze[row].length; col++) {
+            if (maze[row][col] === 2) {
+                // Reset the player's position to the initial coordinates
+                const playerX = col;
+                const playerY = row;
+                return { x: playerX, y: playerY };
+            }
+        }
+    }
+}
