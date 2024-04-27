@@ -111,6 +111,13 @@ function GameStarts() {
         timer++;
         totaltimer = timer + "s";
         time.firstChild.nodeValue = totaltimer;
+        // Dead after 120 Seconds
+        if (timer == 120) {
+            Lost1();
+            Lost2();
+            LostAll();
+            Refresh();
+        }
     }, 1000)
     setInterval(function () {
         const position = player.getBoundingClientRect();
