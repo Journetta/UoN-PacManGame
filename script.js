@@ -317,12 +317,12 @@ const life3 = document.getElementById('3');
 const enemyColour = document.querySelectorAll('.enemy');
 
 colorPicker.addEventListener('input', () => {
-  const selectedColor = colorPicker.value;
-  playercolour.style.backgroundColor = selectedColor;
-  life1.style.backgroundColor = selectedColor;
-  life2.style.backgroundColor = selectedColor;
-  life3.style.backgroundColor = selectedColor;
-  invertColor(selectedColor);
+    const selectedColor = colorPicker.value;
+    playercolour.style.backgroundColor = selectedColor;
+    life1.style.backgroundColor = selectedColor;
+    life2.style.backgroundColor = selectedColor;
+    life3.style.backgroundColor = selectedColor;
+    invertColor(selectedColor);
 });
 
 function invertColor(hexColor) {
@@ -336,11 +336,11 @@ function invertColor(hexColor) {
     const invertedG = 255 - g;
     const invertedB = 255 - b;
 
-        // Convert inverted RGB values back to hexadecimal
-        const invertedHexColor = `#${invertedR.toString(16).padStart(2, '0')}${invertedG.toString(16).padStart(2, '0')}${invertedB.toString(16).padStart(2, '0')}`;
+    // Convert inverted RGB values back to hexadecimal
+    const invertedHexColor = `#${invertedR.toString(16).padStart(2, '0')}${invertedG.toString(16).padStart(2, '0')}${invertedB.toString(16).padStart(2, '0')}`;
 
-        // Apply the inverted color to your desired element
-        // For example:
-        enemyColour[0].style.backgroundColor = invertedHexColor;
-        enemyColour[1].style.backgroundColor = invertedHexColor;
-    }
+    // Apply the inverted color to your desired element
+    // For example:
+    enemyColour[0].style.backgroundColor = invertedHexColor;
+    enemyColour[1].style.backgroundColor = invertedHexColor;
+}
