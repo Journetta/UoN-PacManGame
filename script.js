@@ -344,18 +344,3 @@ function invertColor(hexColor) {
         enemyColour[0].style.backgroundColor = invertedHexColor;
         enemyColour[1].style.backgroundColor = invertedHexColor;
     }
-
-    
-function resetPlayerPosition() {
-    // Find the initial position of the player (value 2 in the maze array)
-    for (let row = 0; row < maze.length; row++) {
-        for (let col = 0; col < maze[row].length; col++) {
-            if (maze[row][col] === 2) {
-                // Reset the player's position to the initial coordinates
-                const playerX = col;
-                const playerY = row;
-                return { x: playerX, y: playerY };
-            }
-        }
-    }
-}
