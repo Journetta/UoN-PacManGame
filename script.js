@@ -194,6 +194,7 @@ function GainPoint() {
     if (tp == 40) {
         console.log("40 Points! Gained!");
         h1 = document.getElementById("TT");
+        LeaderBoard();
         setTimeout(function () {
             console.log('win');
             h1 = document.getElementById("gameover");
@@ -244,9 +245,9 @@ function killer() {
         if (deaths > 50) {
             Lost2();
         }
-        if (deaths > 80) {
+        if (deaths > 100) {
             LostAll();
-            Refresh();
+
         }
     }
 }
@@ -257,11 +258,18 @@ let Lost2Life = false;
 let Lost3Life = false;
 
 
+function Reset() {
+    playerTop = 0;
+    playerLeft = 0;
+}
+
+
 function Lost1() {
     if (Lost1Life == false) {
         Lost1Life = true;
         document.getElementById("1").style.display = "none";
         console.log("2 Lives Left!");
+        Reset();
     }
 }
 
@@ -270,6 +278,7 @@ function Lost2() {
         Lost2Life = true;
         document.getElementById("2").style.display = "none";
         console.log("1 Life Left!");
+        Reset();
     }
 }
 
@@ -359,3 +368,22 @@ function invertColor(hexcolor) {
     enemyColour[0].style.backgroundColor = invertedhexcolor;
     enemyColour[1].style.backgroundColor = invertedhexcolor;
 }
+
+
+// Leaderboard
+
+NameASK = false;
+
+function LeaderBoard() {
+    if (NameASK == false) {
+        NameASK = true;
+    username = prompt("Enter Your Name");
+    localStorage.setItem('Name', username);
+    localStorage.setItem('Time', timer);
+    Refresh();
+}}
+
+first = document.getElementById('1st');
+firstname = localStorage.getItem('Name');
+firstclock = localStorage.getItem('Time');
+first.firstChild.nodeValue = firstname + ' :  ' + firstclock + 's';
