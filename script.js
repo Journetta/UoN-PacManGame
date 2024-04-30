@@ -3,24 +3,11 @@ let downPressed = false;
 let leftPressed = false;
 let rightPressed = false;
 
+let rs = [];
 
-let r1 = Math.round(Math.random() * 1);
-let r2 = Math.round(Math.random() * 1);
-let r3 = Math.round(Math.random() * 1);
-let r4 = Math.round(Math.random() * 1);
-let r5 = Math.round(Math.random() * 1);
-let r6 = Math.round(Math.random() * 1);
-let r7 = Math.round(Math.random() * 1);
-let r8 = Math.round(Math.random() * 1);
-let r9 = Math.round(Math.random() * 1);
-let r10 = Math.round(Math.random() * 1);
-let r11 = Math.round(Math.random() * 1);
-let r12 = Math.round(Math.random() * 1);
-let r13 = Math.round(Math.random() * 1);
-let r14 = Math.round(Math.random() * 1);
-let r15 = Math.round(Math.random() * 1);
-let r16 = Math.round(Math.random() * 1);
-
+for (let i = 0; i < 17; i++) {
+    rs[i] = Math.round(Math.random() * 1);
+}
 
 
 const main = document.querySelector('main');
@@ -29,14 +16,14 @@ const main = document.querySelector('main');
 //10 by 10 maze
 let maze = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 2, 0, 0, 0, r16, 0, 0, 3, 1],
-    [1, 0, 0, r1, 0, 0, 0, r14, r15, 1],
-    [1, 0, 0, 0, r2, 0, 0, 0, 0, 1],
-    [1, 0, r4, r3, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, r5, r6, 1],
-    [1, 0, 0, r7, 0, 0, 0, 0, 0, 1],
-    [1, r8, 0, r9, 0, r11, 0, r12, 0, 1],
-    [1, 3, 0, r10, 0, r2, 0, r13, 0, 1],
+    [1, 2, 0, 0, 0, rs[16], 0, 0, 3, 1],
+    [1, 0, 0, rs[1], 0, 0, 0, rs[14], rs[15], 1],
+    [1, 0, 0, 0, rs[2], 0, 0, 0, 0, 1],
+    [1, 0, rs[4], rs[3], 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, rs[5], rs[6], 1],
+    [1, 0, 0, rs[7], 0, 0, 0, 0, 0, 1],
+    [1, rs[8], 0, rs[9], 0, rs[11], 0, rs[12], 0, 1],
+    [1, 3, 0, rs[10], 0, rs[2], 0, rs[13], 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 
@@ -124,7 +111,7 @@ function GameStarts() {
         // below is equivilent to downPressed == true
         if (downPressed) {
             GainPoint();
-            Killer();
+            killer();
             let newBottom = position.bottom + 1;
 
             let btmL = document.elementFromPoint(position.left, newBottom);
@@ -139,7 +126,7 @@ function GameStarts() {
         }
         else if (upPressed) {
             GainPoint();
-            Killer();
+            killer();
             let newTop = position.top - 1;
             let topL = document.elementFromPoint(position.left, newTop);
             let topR = document.elementFromPoint(position.right, newTop);
@@ -152,7 +139,7 @@ function GameStarts() {
         }
         else if (leftPressed) {
             GainPoint();
-            Killer();
+            killer();
             let newLeft = position.left - 1;
             let lefL = document.elementFromPoint(newLeft, position.bottom);
             let lefR = document.elementFromPoint(newLeft, position.top);
@@ -165,7 +152,7 @@ function GameStarts() {
         }
         else if (rightPressed) {
             GainPoint();
-            Killer();
+            killer();
             let newRight = position.right - 1;
             let ritL = document.elementFromPoint(newRight, position.bottom);
             let ritR = document.elementFromPoint(newRight, position.top);
@@ -235,7 +222,8 @@ height = window.innerHeight;
 
 deaths = 0
 
-function Killer() {
+// lowercase stuff
+function killer() {
     const position = player.getBoundingClientRect();
     const enemy = document.querySelectorAll('.enemy');
     for (let i = 0; i < enemy.length; i++) {
@@ -248,7 +236,7 @@ function Killer() {
         ) {
             setTimeout(function () {
                 deaths++;
-            }, 200)
+            }, 300)
         }
         if (deaths > 10) {
             Lost1();
@@ -296,7 +284,7 @@ function LostAll() {
         // stops the timer
         clearInterval(clock);
         document.removeEventListener('keydown', keyDown);
-        let upPressed = false;
+        upPressed = false;
         downPressed = false;
         leftPressed = false;
         rightPressed = false;
@@ -352,11 +340,13 @@ colorPicker.addEventListener('input', () => {
     invertColor(selectedColor);
 });
 
-function invertColor(hexColor) {
+
+
+function invertColor(hexcolor) {
     // Convert hexadecimal color to RGB
-    const r = parseInt(hexColor.slice(1, 3), 16);
-    const g = parseInt(hexColor.slice(3, 5), 16);
-    const b = parseInt(hexColor.slice(5, 7), 16);
+    const r = parseInt(hexcolor.slice(1, 3), 16);
+    const g = parseInt(hexcolor.slice(3, 5), 16);
+    const b = parseInt(hexcolor.slice(5, 7), 16);
 
     // Invert the RGB values
     const invertedR = 255 - r;
@@ -364,8 +354,8 @@ function invertColor(hexColor) {
     const invertedB = 255 - b;
 
     // Convert inverted RGB values back to hexadecimal
-    const invertedHexColor = `#${invertedR.toString(16).padStart(2, '0')}${invertedG.toString(16).padStart(2, '0')}${invertedB.toString(16).padStart(2, '0')}`;
+    const invertedhexcolor = `#${invertedR.toString(16).padStart(2, '0')}${invertedG.toString(16).padStart(2, '0')}${invertedB.toString(16).padStart(2, '0')}`;
 
-    enemyColour[0].style.backgroundColor = invertedHexColor;
-    enemyColour[1].style.backgroundColor = invertedHexColor;
+    enemyColour[0].style.backgroundColor = invertedhexcolor;
+    enemyColour[1].style.backgroundColor = invertedhexcolor;
 }
