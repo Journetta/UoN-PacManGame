@@ -374,7 +374,7 @@ function invertColor(hexcolor) {
 
 // Leaderboard
 
-// High Scores -  This Blog Post Helped me > https://michael-karen.medium.com/how-to-save-high-scores-in-local-storage-7860baca9d68
+// High Scores
 const NO_OF_HIGH_SCORES = 7;
 const HIGH_SCORES = 'highScores';
 const highScoreString = localStorage.getItem(HIGH_SCORES);
