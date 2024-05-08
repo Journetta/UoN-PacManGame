@@ -192,7 +192,7 @@ function GainPoint() {
             wingame--;
         }
     }
-    if (tp == 40) {
+    if (tp == 4) {
         console.log("40 Points! Gained!");
         h1 = document.getElementById("TT");
         saveHighScore();
@@ -375,7 +375,7 @@ function invertColor(hexcolor) {
 // Leaderboard
 
 // High Scores -  This Blog Post Helped me > https://michael-karen.medium.com/how-to-save-high-scores-in-local-storage-7860baca9d68
-const NO_OF_HIGH_SCORES = 5;
+const NO_OF_HIGH_SCORES = 7;
 const HIGH_SCORES = 'highScores';
 const highScoreString = localStorage.getItem(HIGH_SCORES);
 const highScores = JSON.parse(highScoreString) ?? [];
@@ -391,7 +391,7 @@ function saveHighScore() {
     const newRecord = { username, timer };
 
     highScores.push(newRecord);
-    highScores.sort((a, b) => b.timer| a.timer);
+    highScores.sort((a, b) => a.timer - b.timer);
 
     highScores.splice(NO_OF_HIGH_SCORES);
     localStorage.setItem(HIGH_SCORES, JSON.stringify(highScores));
