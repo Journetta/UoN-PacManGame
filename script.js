@@ -3,6 +3,7 @@ let downPressed = false;
 let leftPressed = false;
 let rightPressed = false;
 
+
 let rs = [];
 
 for (let i = 0; i < 17; i++) {
@@ -194,7 +195,7 @@ function GainPoint() {
     if (tp == 40) {
         console.log("40 Points! Gained!");
         h1 = document.getElementById("TT");
-        LeaderBoard();
+        saveHighScore();
         setTimeout(function () {
             console.log('win');
             h1 = document.getElementById("gameover");
@@ -373,18 +374,41 @@ function invertColor(hexcolor) {
 
 // Leaderboard
 
-NameASK = false;
+// High Scores -  This Blog Post Helped me > https://michael-karen.medium.com/how-to-save-high-scores-in-local-storage-7860baca9d68
+const NO_OF_HIGH_SCORES = 5;
+const HIGH_SCORES = 'highScores';
+const highScoreString = localStorage.getItem(HIGH_SCORES);
+const highScores = JSON.parse(highScoreString) ?? [];
 
-function LeaderBoard() {
+NameASK = false;
+const SlowestTime = highScores[NO_OF_HIGH_SCORES - 1]?.timer ?? 999;
+
+function saveHighScore() {
     if (NameASK == false) {
         NameASK = true;
-    username = prompt("Enter Your Name");
-    localStorage.setItem('Name', username);
-    localStorage.setItem('Time', timer);
-    Refresh();
-}}
+    
+    const username = prompt('Please Enter Your Username');
+    const newRecord = { username, timer };
 
-first = document.getElementById('1st');
-firstname = localStorage.getItem('Name');
-firstclock = localStorage.getItem('Time');
-first.firstChild.nodeValue = firstname + ' :  ' + firstclock + 's';
+    highScores.push(newRecord);
+    highScores.sort((a, b) => b.timer| a.timer);
+
+    highScores.splice(NO_OF_HIGH_SCORES);
+    localStorage.setItem(HIGH_SCORES, JSON.stringify(highScores));
+    }
+};
+
+
+
+function showHighScores() {
+    const highScores = JSON.parse(localStorage.getItem(HIGH_SCORES)) ?? [];
+    const highScoreList = document.getElementById(HIGH_SCORES);
+    
+    highScoreList.innerHTML = highScores
+      .map((score) => `<li>${score.timer} - ${score.username}`)
+      .join('');
+  }
+
+
+
+  showHighScores();
