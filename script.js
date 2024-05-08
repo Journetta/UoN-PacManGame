@@ -436,3 +436,11 @@ function showHighScores() {
 
 
   showHighScores();
+
+
+  // DEV TOOLS
+  function LEADRESET() {
+    localStorage.clear();
+    showHighScores();
+    console.log('Leaderboard was reset');
+  }
