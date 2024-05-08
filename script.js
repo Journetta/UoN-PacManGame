@@ -193,29 +193,9 @@ function GainPoint() {
         }
     }
     if (tp == 4) {
-        console.log("40 Points! Gained!");
-        h1 = document.getElementById("TT");
-        saveHighScore();
-        setTimeout(function () {
-            console.log('win');
-            h1 = document.getElementById("gameover");
-            start = document.getElementById("TT");
-            document.getElementById("GameStarter").style.display = 'flex';
-            start.firstChild.nodeValue = "‎";
-            h1.firstChild.nodeValue = "Game Win!";
-            console.log("Score: " + tp);
-            console.log("Time: " + timer + "s");
-            score.firstChild.nodeValue = ("Win!");
-            document.removeEventListener('keydown', keyDown);
-            // stops the timer
-            clearInterval(clock);
-            upPressed = false;
-            downPressed = false;
-            leftPressed = false;
-            rightPressed = false;
-        }, 500)
+        gameWin();
     }
-}
+    }
 console.log('The height of the screen = ' + window.innerHeight);
 console.log('The Width of the Screen is =' + window.innerWidth);
 width = window.innerWidth;
@@ -223,6 +203,35 @@ height = window.innerHeight;
 
 
 deaths = 0
+GameWinCalled = false;
+
+
+function gameWin() {
+    if (GameWinCalled == false) {
+        GameWinCalled = true;
+    saveHighScore();
+    console.log("40 Points! Gained!");
+    h1 = document.getElementById("TT");
+    score = document.querySelector(".currentscore");
+        console.log('win');
+        h1 = document.getElementById("gameover");
+        start = document.getElementById("TT");
+        document.getElementById("GameStarter").style.display = 'flex';
+        start.firstChild.nodeValue = "‎";
+        h1.firstChild.nodeValue = "Game Win!";
+        console.log("Time: " + timer + "s");
+        score.firstChild.nodeValue = ("Win!");
+        document.removeEventListener('keydown', keyDown);
+        // stops the timer
+        clearInterval(clock);
+        upPressed = false;
+        downPressed = false;
+        leftPressed = false;
+        rightPressed = false;
+        Restart();
+}
+
+}
 
 // lowercase stuff
 function killer() {
@@ -299,6 +308,7 @@ function LostAll() {
         downPressed = false;
         leftPressed = false;
         rightPressed = false;
+        Refresh();
     }
 }
 
@@ -330,6 +340,22 @@ function Refresh() {
     }
 }
 
+function Restart() {
+    setTimeout(function () {
+        if (confirm("Score: " + tp + " Time: " + timer + "s | " + "Would you like to refresh?") == true) {
+            console.log("Refreshing!");
+            location.reload();
+        } else {
+            console.log("fine don't refresh");
+            h1 = document.getElementById("gameover");
+            h1.firstChild.nodeValue = "Game Over! Press F5 to Refresh";
+        }
+
+
+    },
+        500);
+
+}
 
 
 
@@ -397,8 +423,6 @@ function saveHighScore() {
     localStorage.setItem(HIGH_SCORES, JSON.stringify(highScores));
     }
 };
-
-
 
 function showHighScores() {
     const highScores = JSON.parse(localStorage.getItem(HIGH_SCORES)) ?? [];
