@@ -287,6 +287,7 @@ function LostAll() {
         Lost3Life = true;
         document.getElementById("3").style.display = "none";
         console.log("you Died!");
+        Refresh();
         LIFETAG = document.getElementById("livestag");
         LIFETAG.firstChild.nodeValue = "DEAD";
         LIFETAG.style.color = "red";
@@ -317,7 +318,7 @@ function Refresh() {
                 console.log("Refreshing!");
                 location.reload();
             } else {
-                console.log("fine dont refresh");
+                console.log("fine don't refresh");
                 h1 = document.getElementById("gameover");
                 h1.firstChild.nodeValue = "Game Over! Press F5 to Refresh";
             }
