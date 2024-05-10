@@ -464,65 +464,64 @@ MoveRight = false;
 MoveTop = false;
 MoveBottom = false;
 
-setInterval(function () {
-    MoveLeft = false;
-    MoveRight = false;
-    MoveTop = false;
-    MoveBottom = false;
-    random = Math.round(Math.random() * 3);
-}, 5000);
 
-random = 0;
 
+// coPilot helped with this
 function moveEnemy(enemy) {
+    let top = 0;
+    let left = 0;
+    let direction = 0; // Initialize direction (0: left, 1: right, 2: up, 3: down)
+    let moveDuration = 3000; // 1 second in milliseconds
+    let stepSize = 100; // Initial step size (adjust as needed)
 
-    let top = 0
-    let left = 0
+    function updatePosition() {
+        // Calculate new position based on current direction
+        switch (direction) {
+            case 0:
+                left -= stepSize;
+                break;
+            case 1:
+                left += stepSize;
+                break;
+            case 2:
+                top += stepSize;
+                break;
+            case 3:
+                top -= stepSize;
+                break;
+        }
 
-    setInterval(function () {
-        const position = enemy.getBoundingClientRect();
+        // Ensure enemy stays within maze bounds (adjust as needed)
+        if (left < 0) {
+            left = 0;
+            direction = 1; // Change direction to right
+        } else if (left >= maze[0].length) {
+            left = maze[0].length - 1;
+            direction = 0; // Change direction to left
+        }
+        if (top < 0) {
+            top = 0;
+            direction = 3; // Change direction to up
+        } else if (top >= maze.length) {
+            top = maze.length - 1;
+            direction = 2; // Change direction to down
+        }
 
-        if (random == 0) {
-            let newBottom = position.bottom + 1;
-
-            if (collision(position, 'wall') == false) {
-                setInterval(function () {
-                    left--;
-                }, 10);
-            }
-        }
-        if (random == 1) {
-            if (collision(position, 'wall') == false) {
-                left++;
-            }
-        }
-        if (random == 2) {
-            if (collision(position, 'wall') == false) {
-                top++;
-            }
-        }
-        if (random == 3) {
-            if (collision(position, 'wall') == false) {
-                top--;
-            }
-        }
+        // Update enemy position
         enemy.style.left = left + 'px';
         enemy.style.top = top + 'px';
-    }, 10);
+
+        // Increase step size gradually
+        stepSize += 0.1; // Adjust the increment as needed
+
+        // Request next frame
+        requestAnimationFrame(updatePosition);
+    }
+
+    // Initial position update
+    updatePosition();
 }
 
-function collision(position, enemy) {
-    const elements = document.querySelectorAll('.wall');
-    for (let i = 0; i < elements.length; i++) {
-        let pos = elements[i].getBoundingClientRect();
-        if (
-            position.right > pos.left &&
-            position.left < pos.right &&
-            position.bottom > pos.top &&
-            position.top < pos.bottom
-        ) {
-            return true;
-        }
-    }
-    return false;
-}
+// Example usage:
+const enemyElement = document.getElementById('enemy'); // Replace with your actual element
+moveEnemy(enemyElement);
