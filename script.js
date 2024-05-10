@@ -86,12 +86,15 @@ const player = document.querySelector('#player');
 const playerMouth = player.querySelector('.mouth');
 let playerTop = 0;
 let playerLeft = 0;
+let enemyTop = 0;
+let enemyLeft = 0;
 const wall = document.querySelector('.wall');
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 
 function GameStarts() {
+    moveEnemies()
     console.log("Game Start! was pressed");
     document.getElementById("GameStarter").style.display = 'none';
     clock = setInterval(function () {
@@ -195,7 +198,7 @@ function GainPoint() {
     if (tp == 4) {
         gameWin();
     }
-    }
+}
 console.log('The height of the screen = ' + window.innerHeight);
 console.log('The Width of the Screen is =' + window.innerWidth);
 width = window.innerWidth;
@@ -209,10 +212,10 @@ GameWinCalled = false;
 function gameWin() {
     if (GameWinCalled == false) {
         GameWinCalled = true;
-    saveHighScore();
-    console.log("40 Points! Gained!");
-    h1 = document.getElementById("TT");
-    score = document.querySelector(".currentscore");
+        saveHighScore();
+        console.log("40 Points! Gained!");
+        h1 = document.getElementById("TT");
+        score = document.querySelector(".currentscore");
         console.log('win');
         h1 = document.getElementById("gameover");
         start = document.getElementById("TT");
@@ -229,7 +232,7 @@ function gameWin() {
         leftPressed = false;
         rightPressed = false;
         Restart();
-}
+    }
 
 }
 
@@ -412,35 +415,114 @@ const SlowestTime = highScores[NO_OF_HIGH_SCORES - 1]?.timer ?? 999;
 function saveHighScore() {
     if (NameASK == false) {
         NameASK = true;
-    
-    const username = prompt('Please Enter Your Username');
-    const newRecord = { username, timer };
 
-    highScores.push(newRecord);
-    highScores.sort((a, b) => a.timer - b.timer);
+        const username = prompt('Please Enter Your Username');
+        const newRecord = { username, timer };
 
-    highScores.splice(NO_OF_HIGH_SCORES);
-    localStorage.setItem(HIGH_SCORES, JSON.stringify(highScores));
+        highScores.push(newRecord);
+        highScores.sort((a, b) => a.timer - b.timer);
+
+        highScores.splice(NO_OF_HIGH_SCORES);
+        localStorage.setItem(HIGH_SCORES, JSON.stringify(highScores));
     }
 };
 
 function showHighScores() {
     const highScores = JSON.parse(localStorage.getItem(HIGH_SCORES)) ?? [];
     const highScoreList = document.getElementById(HIGH_SCORES);
-    
+
     highScoreList.innerHTML = highScores
-      .map((score) => `<li>${score.timer} - ${score.username}`)
-      .join('');
-  }
+        .map((score) => `<li>${score.timer} - ${score.username}`)
+        .join('');
+}
 
 
 
-  showHighScores();
+showHighScores();
 
 
-  // DEV TOOLS
-  function LEADRESET() {
+// DEV TOOLS
+function LEADRESET() {
     localStorage.clear();
     showHighScores();
     console.log('Leaderboard was reset');
-  }
+
+}
+
+
+// Move Enemies
+
+function moveEnemies() {
+    const enemies = document.querySelectorAll('.enemy');
+    for (let enemy of enemies) {
+        moveEnemy(enemy);
+    }
+}
+
+MoveLeft = false;
+MoveRight = false;
+MoveTop = false;
+MoveBottom = false;
+
+setInterval(function () {
+    MoveLeft = false;
+    MoveRight = false;
+    MoveTop = false;
+    MoveBottom = false;
+    random = Math.round(Math.random() * 3);
+}, 5000);
+
+random = 0;
+
+function moveEnemy(enemy) {
+
+    let top = 0
+    let left = 0
+
+    setInterval(function () {
+        const position = enemy.getBoundingClientRect();
+
+        if (random == 0) {
+            let newBottom = position.bottom + 1;
+
+            if (collision(position, 'wall') == false) {
+                setInterval(function () {
+                    left--;
+                }, 10);
+            }
+        }
+        if (random == 1) {
+            if (collision(position, 'wall') == false) {
+                left++;
+            }
+        }
+        if (random == 2) {
+            if (collision(position, 'wall') == false) {
+                top++;
+            }
+        }
+        if (random == 3) {
+            if (collision(position, 'wall') == false) {
+                top--;
+            }
+        }
+        enemy.style.left = left + 'px';
+        enemy.style.top = top + 'px';
+    }, 10);
+}
+
+function collision(position, enemy) {
+    const elements = document.querySelectorAll('.wall');
+    for (let i = 0; i < elements.length; i++) {
+        let pos = elements[i].getBoundingClientRect();
+        if (
+            position.right > pos.left &&
+            position.left < pos.right &&
+            position.bottom > pos.top &&
+            position.top < pos.bottom
+        ) {
+            return true;
+        }
+    }
+    return false;
+}
