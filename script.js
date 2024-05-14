@@ -3,6 +3,7 @@ let downPressed = false;
 let leftPressed = false;
 let rightPressed = false;
 
+LivesCreate();
 
 let rs = [];
 
@@ -56,6 +57,31 @@ for (let y of maze) {
 
         main.appendChild(block);
     }
+}
+
+function LivesCreate() {
+        // Create the parent div with class "lives"
+        var livesContainer = document.querySelector('.lives');
+
+        // Create the <h1> element
+        var livetit = document.createElement('h1');
+        livetit.className = 'livestag';
+        livetit.textContent = 'Lives:';
+        livesContainer.appendChild(livetit);
+        // Create the <ul> element
+        var ul = document.createElement('ul');
+
+        // Create three <li> elements with unique ids
+        for (var i = 1; i <= 3; i++) {
+            var li = document.createElement('li');
+            li.className = 'livescolour';
+            li.id = i.toString();
+            ul.appendChild(li);
+        }
+
+        // Append the <ul> to the parent div
+        livesContainer.appendChild(ul);
+
 }
 
 //Player movement
@@ -406,17 +432,10 @@ function Restart() {
  
 const colorPicker = document.getElementById('colorPicker');
 const playercolour = document.querySelector('#player');
-const life1 = document.getElementById('1');
-const life2 = document.getElementById('2');
-const life3 = document.getElementById('3');
 const enemyColour = document.querySelectorAll('.enemy');
-
 colorPicker.addEventListener('input', () => {
     const selectedColor = colorPicker.value;
     playercolour.style.backgroundColor = selectedColor;
-    life1.style.backgroundColor = selectedColor;
-    life2.style.backgroundColor = selectedColor;
-    life3.style.backgroundColor = selectedColor;
     invertColor(selectedColor);
 });
 
