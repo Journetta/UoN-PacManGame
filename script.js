@@ -296,6 +296,8 @@ function Reset() {
         clearInterval(stopplayer);
         clearInterval(DeathAnimation);
         ResetPlayerColour();
+        playerTop = 0;
+        playerLeft = 0;
         playercolour.style.backgroundColor = selectedColor;
 
     },
