@@ -11,6 +11,7 @@ for (let i = 0; i < 17; i++) {
 }
 
 
+
 const main = document.querySelector('main');
 
 //Player = 2, Wall = 1, Enemy = 3, Point = 0
@@ -192,10 +193,10 @@ function GainPoint() {
             wingame--;
         }
     }
-    if (tp == 4) {
+    if (tp == 40) {
         gameWin();
     }
-    }
+}
 console.log('The height of the screen = ' + window.innerHeight);
 console.log('The Width of the Screen is =' + window.innerWidth);
 width = window.innerWidth;
@@ -209,10 +210,10 @@ GameWinCalled = false;
 function gameWin() {
     if (GameWinCalled == false) {
         GameWinCalled = true;
-    saveHighScore();
-    console.log("40 Points! Gained!");
-    h1 = document.getElementById("TT");
-    score = document.querySelector(".currentscore");
+        saveHighScore();
+        console.log("40 Points! Gained!");
+        h1 = document.getElementById("TT");
+        score = document.querySelector(".currentscore");
         console.log('win');
         h1 = document.getElementById("gameover");
         start = document.getElementById("TT");
@@ -229,7 +230,7 @@ function gameWin() {
         leftPressed = false;
         rightPressed = false;
         Restart();
-}
+    }
 
 }
 
@@ -266,12 +267,48 @@ let hasBeenCalled = false;
 let Lost1Life = false;
 let Lost2Life = false;
 let Lost3Life = false;
-
+let LostLife = false;
 
 function Reset() {
-    playerTop = 0;
-    playerLeft = 0;
+    if (player.classList.contains = ("hit")) {
+        stopplayer = setInterval(function () {
+            upPressed = false;
+            downPressed = false;
+            leftPressed = false;
+            rightPressed = false;
+            player.style.backgroundColor = "orange";
+
+        }, 1);
+    }
+
+    DeathAnimation = setInterval (function() {
+        playercolour.style.backgroundColor = "red";
+},
+    10);
+
+    setTimeout(function () {
+        playerTop = 0;
+        playerLeft = 0;
+    }, 750)
+
+    setTimeout(function () {
+        player.classList.remove = ("hit");
+        clearInterval(stopplayer);
+        clearInterval(DeathAnimation);
+        ResetPlayerColour();
+        playercolour.style.backgroundColor = selectedColor;
+
+    },
+        1500);
+
 }
+
+function ResetPlayerColour() {
+    playercolour.style.backgroundColor = selectedColor;
+    playercolour.style.backgroundColor = selectedColor;
+    playercolour.style.backgroundColor = selectedColor;
+}
+
 
 
 function Lost1() {
@@ -279,6 +316,7 @@ function Lost1() {
         Lost1Life = true;
         document.getElementById("1").style.display = "none";
         console.log("2 Lives Left!");
+        player.classList.add('hit');
         Reset();
     }
 }
@@ -288,6 +326,7 @@ function Lost2() {
         Lost2Life = true;
         document.getElementById("2").style.display = "none";
         console.log("1 Life Left!");
+        player.classList.add('hit');
         Reset();
     }
 }
@@ -295,6 +334,7 @@ function Lost2() {
 function LostAll() {
     if (Lost3Life == false) {
         Lost3Life = true;
+        player.classList.add = ("hit");
         document.getElementById("3").style.display = "none";
         console.log("you Died!");
         Refresh();
@@ -361,6 +401,7 @@ function Restart() {
 
 // The Rainbow Machine - With help from w3schools
 
+ 
 const colorPicker = document.getElementById('colorPicker');
 const playercolour = document.querySelector('#player');
 const life1 = document.getElementById('1');
@@ -380,17 +421,14 @@ colorPicker.addEventListener('input', () => {
 
 
 function invertColor(hexcolor) {
-    // Convert hexadecimal color to RGB
     const r = parseInt(hexcolor.slice(1, 3), 16);
     const g = parseInt(hexcolor.slice(3, 5), 16);
     const b = parseInt(hexcolor.slice(5, 7), 16);
 
-    // Invert the RGB values
     const invertedR = 255 - r;
     const invertedG = 255 - g;
     const invertedB = 255 - b;
 
-    // Convert inverted RGB values back to hexadecimal
     const invertedhexcolor = `#${invertedR.toString(16).padStart(2, '0')}${invertedG.toString(16).padStart(2, '0')}${invertedB.toString(16).padStart(2, '0')}`;
 
     enemyColour[0].style.backgroundColor = invertedhexcolor;
@@ -412,35 +450,35 @@ const SlowestTime = highScores[NO_OF_HIGH_SCORES - 1]?.timer ?? 999;
 function saveHighScore() {
     if (NameASK == false) {
         NameASK = true;
-    
-    const username = prompt('Please Enter Your Username');
-    const newRecord = { username, timer };
 
-    highScores.push(newRecord);
-    highScores.sort((a, b) => a.timer - b.timer);
+        const username = prompt('Please Enter Your Username');
+        const newRecord = { username, timer };
 
-    highScores.splice(NO_OF_HIGH_SCORES);
-    localStorage.setItem(HIGH_SCORES, JSON.stringify(highScores));
+        highScores.push(newRecord);
+        highScores.sort((a, b) => a.timer - b.timer);
+
+        highScores.splice(NO_OF_HIGH_SCORES);
+        localStorage.setItem(HIGH_SCORES, JSON.stringify(highScores));
     }
 };
 
 function showHighScores() {
     const highScores = JSON.parse(localStorage.getItem(HIGH_SCORES)) ?? [];
     const highScoreList = document.getElementById(HIGH_SCORES);
-    
+
     highScoreList.innerHTML = highScores
-      .map((score) => `<li>${score.timer} - ${score.username}`)
-      .join('');
-  }
+        .map((score) => `<li>${score.timer} - ${score.username}`)
+        .join('');
+}
 
 
 
-  showHighScores();
+showHighScores();
 
 
-  // DEV TOOLS
-  function LEADRESET() {
+// DEV TOOLS
+function LEADRESET() {
     localStorage.clear();
     showHighScores();
     console.log('Leaderboard was reset');
-  }
+}
