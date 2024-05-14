@@ -3,7 +3,7 @@ let downPressed = false;
 let leftPressed = false;
 let rightPressed = false;
 
-LivesCreate();
+
 
 let rs = [];
 
@@ -119,6 +119,7 @@ document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 
 function GameStarts() {
+    LivesCreate();
     console.log("Game Start! was pressed");
     document.getElementById("GameStarter").style.display = 'none';
     clock = setInterval(function () {
@@ -284,6 +285,7 @@ function killer() {
         }
         if (deaths > 100) {
             LostAll();
+            
 
         }
     }
@@ -302,15 +304,10 @@ function Reset() {
             downPressed = false;
             leftPressed = false;
             rightPressed = false;
-            player.style.backgroundColor = "orange";
-
+            player.classList.remove = ('hit');
         }, 1);
     }
 
-    DeathAnimation = setInterval (function() {
-        playercolour.style.backgroundColor = "red";
-},
-    10);
 
     setTimeout(function () {
         playerTop = 0;
@@ -318,10 +315,7 @@ function Reset() {
     }, 750)
 
     setTimeout(function () {
-        player.classList.remove = ("hit");
         clearInterval(stopplayer);
-        clearInterval(DeathAnimation);
-        ResetPlayerColour();
         playerTop = 0;
         playerLeft = 0;
         playercolour.style.backgroundColor = selectedColor;
@@ -400,6 +394,11 @@ function Refresh() {
                 console.log("fine don't refresh");
                 h1 = document.getElementById("gameover");
                 h1.firstChild.nodeValue = "Game Over! Press F5 to Refresh";
+                document.removeEventListener('keydown', keyDown);
+                downPressed = false;
+                upPressed = false;
+                leftPressed = false;
+                rightPressed = false;            
             }
 
 
@@ -439,6 +438,9 @@ colorPicker.addEventListener('input', () => {
     invertColor(selectedColor);
 });
 
+function RevertPlayerColour() {
+        playercolour.style.backgroundColor = selectedColor;
+}
 
 
 function invertColor(hexcolor) {
