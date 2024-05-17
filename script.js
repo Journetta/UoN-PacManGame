@@ -34,6 +34,8 @@ let upPressed = false;
 let downPressed = false;
 let leftPressed = false;
 let rightPressed = false;
+// TIMER
+let timer = 0;
 
 // random wall / point 
 let rs = [];
@@ -133,6 +135,22 @@ function LivesCreate() {
 
     livesContainer.appendChild(ul);
 
+}
+
+function StartTimer() {
+    clock = setInterval(function () {
+        const time = document.getElementById('currenttime');
+        timer++;
+        totaltimer = timer + "s";
+        time.firstChild.nodeValue = totaltimer;
+        // Dead after maxtime
+        if (timer == maxtime) {
+            Lost1();
+            Lost2();
+            LostAll();
+            Refresh();
+        }
+    }, 1000)
 }
 
 //Player movement
@@ -249,24 +267,8 @@ const wall = document.querySelector('.wall');
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 
-function GameStarts() {
-    LivesCreate();
-    console.log("Game Start! was pressed");
-    document.getElementById("GameStarter").style.display = 'none';
-    clock = setInterval(function () {
-        const time = document.getElementById('currenttime');
-        timer++;
-        totaltimer = timer + "s";
-        time.firstChild.nodeValue = totaltimer;
-        // Dead after maxtime
-        if (timer == maxtime) {
-            Lost1();
-            Lost2();
-            LostAll();
-            Refresh();
-        }
-    }, 1000)
-    setInterval(function () {
+function EnableControls() {
+    stopControls = setInterval(function () {
         const position = player.getBoundingClientRect();
         // below is equivilent to downPressed == true
         if (downPressed) {
@@ -327,9 +329,17 @@ function GameStarts() {
     }, 10);
 }
 
+function GameStarts() {
+    console.log("Game Start! was pressed");
+    document.getElementById("GameStarter").style.display = 'none';
+    LivesCreate();
+    StartTimer();
+    EnableControls();
+}
+
 // points
 let tp = 0;
-let timer = 0;
+
 
 function GainPoint() {
     const position = player.getBoundingClientRect();
@@ -377,10 +387,7 @@ function gameWin() {
         document.removeEventListener('keydown', keyDown);
         // stops the timer
         clearInterval(clock);
-        upPressed = false;
-        downPressed = false;
-        leftPressed = false;
-        rightPressed = false;
+        clearInterval(stopcontrols);
         Restart();
     }
 
@@ -419,13 +426,7 @@ function killer() {
 // Reset Player to Starting Position
 function Reset() {
     if (player.classList.contains = ("hit")) {
-        stopplayer = setInterval(function () {
-            upPressed = false;
-            downPressed = false;
-            leftPressed = false;
-            rightPressed = false;
-            player.classList.remove = ('hit');
-        }, 1);
+        clearInterval(stopControls);
     }
 
 
@@ -435,9 +436,9 @@ function Reset() {
     }, 750)
 
     setTimeout(function () {
-        clearInterval(stopplayer);
         playerTop = 0;
         playerLeft = 0;
+        EnableControls();
         playercolour.style.backgroundColor = selectedColor;
 
     },
@@ -477,11 +478,7 @@ function LostAll() {
         LIFETAG.style.color = "red";
         // stops the timer
         clearInterval(clock);
-        document.removeEventListener('keydown', keyDown);
-        upPressed = false;
-        downPressed = false;
-        leftPressed = false;
-        rightPressed = false;
+        clearInterval(stopControls);
         Refresh();
     }
 }
@@ -525,11 +522,13 @@ function Restart() {
     setTimeout(function () {
         if (confirm("Score: " + tp + " Time: " + timer + "s | " + "Would you like to refresh?") == true) {
             console.log("Refreshing!");
+            clearInterval(stopControls);
             location.reload();
         } else {
             console.log("fine don't refresh");
             h1 = document.getElementById("gameover");
             h1.firstChild.nodeValue = "Game Over! Press F5 to Refresh";
+            clearInterval(stopControls);
         }
 
 
