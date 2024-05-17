@@ -110,6 +110,78 @@ function keyDown(event) {
     }
 }
 
+const leftButton = document.getElementById('lbttn');
+
+const upButton = document.getElementById('ubttn')
+
+const RightButton = document.getElementById('rbttn')
+
+const DownButton = document.getElementById('dbttn')
+
+leftButton.addEventListener('mousedown', () => {
+    downPressed = false;
+    upPressed = false;
+    rightPressed = false;
+    leftPressed = true;
+
+});
+
+leftButton.addEventListener('mouseup', () => {
+    downPressed = false;
+    upPressed = false;
+    rightPressed = false;
+    leftPressed = false;
+
+});
+
+RightButton.addEventListener('mousedown', () => {
+    downPressed = false;
+    upPressed = false;
+    rightPressed = true;
+    leftPressed = false;
+    
+});
+
+RightButton.addEventListener('mouseup', () => {
+    downPressed = false;
+    upPressed = false;
+    rightPressed = false;
+    leftPressed = false;
+    
+});
+
+upButton.addEventListener('mousedown', () => {
+    upPressed = true;
+    rightPressed = false;
+    leftPressed = false;
+    downPressed = false;
+    
+});
+
+upButton.addEventListener('mouseup', () => {
+    upPressed = false;
+    rightPressed = false;
+    leftPressed = false;
+    downPressed = false;
+    
+});
+
+DownButton.addEventListener('mousedown', () => {
+    downPressed = true;
+    upPressed = false;
+    rightPressed = false;
+    leftPressed = false;
+    
+});
+
+DownButton.addEventListener('mouseup', () => {
+    downPressed = false;
+    upPressed = false;
+    rightPressed = false;
+    leftPressed = false;
+    
+});
+
 const player = document.querySelector('#player');
 const playerMouth = player.querySelector('.mouth');
 let playerTop = 0;
