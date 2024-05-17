@@ -195,7 +195,7 @@ function GainPoint() {
             wingame--;
         }
     }
-    if (tp == 4) {
+    if (tp == 40) {
         gameWin();
     }
 }
