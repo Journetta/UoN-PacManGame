@@ -40,7 +40,6 @@ for (let y = 0; y < maze.length; y++) {
     }
 }
 
-
 // Random enemy Position, calling player starting, to ensure they dont spawn next to the player
 const maxEnemies = 2;
 let placedEnemies = 0;
@@ -181,6 +180,7 @@ DownButton.addEventListener('mouseup', () => {
     leftPressed = false;
     
 });
+
 
 const player = document.querySelector('#player');
 const playerMouth = player.querySelector('.mouth');
