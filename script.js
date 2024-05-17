@@ -17,18 +17,46 @@ const main = document.querySelector('main');
 //10 by 10 maze
 let maze = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 2, 0, 0, 0, rs[16], 0, 0, 3, 1],
+    [1, 2, 0, 0, 0, rs[16], 0, 0, 0, 1],
     [1, 0, 0, rs[1], 0, 0, 0, rs[14], rs[15], 1],
     [1, 0, 0, 0, rs[2], 0, 0, 0, 0, 1],
     [1, 0, rs[4], rs[3], 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, rs[5], rs[6], 1],
     [1, 0, 0, rs[7], 0, 0, 0, 0, 0, 1],
     [1, rs[8], 0, rs[9], 0, rs[11], 0, rs[12], 0, 1],
-    [1, 3, 0, rs[10], 0, rs[2], 0, rs[13], 0, 1],
+    [1, 0, 0, rs[10], 0, rs[2], 0, rs[13], 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 
-// Populates the maze in the HTML.
+// Player starting position
+let playerX, playerY;
+for (let y = 0; y < maze.length; y++) {
+    for (let x = 0; x < maze[y].length; x++) {
+        if (maze[y][x] === 2) {
+            playerX = x;
+            playerY = y;
+            break;
+        }
+    }
+}
+
+
+// Random enemy Position, calling player starting, to ensure they dont spawn next to the player
+const maxEnemies = 2;
+let placedEnemies = 0;
+
+while (placedEnemies < maxEnemies) {
+    const randomY = Math.floor(Math.random() * maze.length);
+    const randomX = Math.floor(Math.random() * maze[randomY].length);
+
+    const distance = Math.abs(randomX - playerX) + Math.abs(randomY - playerY);
+    if (maze[randomY][randomX] === 0 && distance >= 3) {
+        maze[randomY][randomX] = 3; 
+        placedEnemies++;
+    }
+}
+
+// Maze Generation
 for (let y of maze) {
     for (let x of y) {
         let block = document.createElement('div');
@@ -94,7 +122,6 @@ document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 
 function GameStarts() {
-    moveEnemies()
     console.log("Game Start! was pressed");
     document.getElementById("GameStarter").style.display = 'none';
     clock = setInterval(function () {
@@ -450,78 +477,8 @@ function LEADRESET() {
 }
 
 
-// Move Enemies
-
-function moveEnemies() {
-    const enemies = document.querySelectorAll('.enemy');
-    for (let enemy of enemies) {
-        moveEnemy(enemy);
-    }
-}
 
 MoveLeft = false;
 MoveRight = false;
 MoveTop = false;
 MoveBottom = false;
-
-
-
-// coPilot helped with this
-function moveEnemy(enemy) {
-    let top = 0;
-    let left = 0;
-    let direction = 0; // Initialize direction (0: left, 1: right, 2: up, 3: down)
-    let moveDuration = 3000; // 1 second in milliseconds
-    let stepSize = 100; // Initial step size (adjust as needed)
-
-    function updatePosition() {
-        // Calculate new position based on current direction
-        switch (direction) {
-            case 0:
-                left -= stepSize;
-                break;
-            case 1:
-                left += stepSize;
-                break;
-            case 2:
-                top += stepSize;
-                break;
-            case 3:
-                top -= stepSize;
-                break;
-        }
-
-        // Ensure enemy stays within maze bounds (adjust as needed)
-        if (left < 0) {
-            left = 0;
-            direction = 1; // Change direction to right
-        } else if (left >= maze[0].length) {
-            left = maze[0].length - 1;
-            direction = 0; // Change direction to left
-        }
-        if (top < 0) {
-            top = 0;
-            direction = 3; // Change direction to up
-        } else if (top >= maze.length) {
-            top = maze.length - 1;
-            direction = 2; // Change direction to down
-        }
-
-        // Update enemy position
-        enemy.style.left = left + 'px';
-        enemy.style.top = top + 'px';
-
-        // Increase step size gradually
-        stepSize += 0.1; // Adjust the increment as needed
-
-        // Request next frame
-        requestAnimationFrame(updatePosition);
-    }
-
-    // Initial position update
-    updatePosition();
-}
-
-// Example usage:
-const enemyElement = document.getElementById('enemy'); // Replace with your actual element
-moveEnemy(enemyElement);
