@@ -1,13 +1,35 @@
-// variables for the rest of the javascript
 
+// CONFIGURE GAME //
+// WELCOME TO SPEEDY 40, PACMAN GAME MADE BY MAISY JONES //
+// IF YOU WOULD LIKE TO CHANGE THE CONDITIONS OF THE GAME, YOU MAY DO SO BELOW //
+
+// AMOUNT OF ENEMIES IN THE MAZE THAT U WANT
+const maxEnemies = 2;
+// wingame Condition: you can edit this to change the win condition.
+const wincondition = 40;
+// CHANGE AMOUNT OF NAMES SHOWN ON SCOREBOARD
+const NO_OF_HIGH_SCORES = 7;
+// TIME LIMIT
+const maxtime = 120;
+// By Making These Values Higher, you make it harder to loose a life, by lowering these values it's easier to loose a life
+// Default: Life1 = 10, Life2 = 50, Life3 = 100 //
+const Life1 = 10;
+const Life2 = 50;
+const Life3 = 100;
+
+// DO NOT EDIT
+// variables for the rest of the javascript
+let hasBeenCalled = false;
+// HOW MANY LIVES ARE LOST
+let Lost1Life = false;
+let Lost2Life = false;
+let Lost3Life = false;
+let LostLife = false;
+// Controls Status
 let upPressed = false;
 let downPressed = false;
 let leftPressed = false;
 let rightPressed = false;
-const maxEnemies = 2;
-let placedEnemies = 0;
-// wingame Condition: 
-let wingame = 40;
 
 // random wall / point 
 let rs = [];
@@ -44,6 +66,8 @@ for (let y = 0; y < maze.length; y++) {
         }
     }
 }
+
+let placedEnemies = 0;
 
 // Random enemy Position, calling player starting, to ensure they dont spawn next to the player
 while (placedEnemies < maxEnemies) {
@@ -230,8 +254,8 @@ function GameStarts() {
         timer++;
         totaltimer = timer + "s";
         time.firstChild.nodeValue = totaltimer;
-        // Dead after 120 Seconds
-        if (timer == 120) {
+        // Dead after maxtime
+        if (timer == maxtime) {
             Lost1();
             Lost2();
             LostAll();
@@ -320,10 +344,9 @@ function GainPoint() {
             tp++;
             score.firstChild.nodeValue = tp;
             points[i].classList.remove("point");
-            wingame--;
         }
     }
-    if (tp == wingame) {
+    if (tp == wincondition) {
         gameWin();
     }
 }
@@ -375,25 +398,19 @@ function killer() {
                 deaths++;
             }, 300)
         }
-        if (deaths > 10) {
+        if (deaths > Life1) {
             Lost1();
         }
-        if (deaths > 50) {
+        if (deaths > Life2) {
             Lost2();
         }
-        if (deaths > 100) {
+        if (deaths > Life3) {
             LostAll();
 
 
         }
     }
 }
-
-let hasBeenCalled = false;
-let Lost1Life = false;
-let Lost2Life = false;
-let Lost3Life = false;
-let LostLife = false;
 
 // Reset Player to Starting Position
 function Reset() {
@@ -435,7 +452,6 @@ function Lost1() {
         Reset();
     }
 }
-
 function Lost2() {
     if (Lost2Life == false) {
         Lost2Life = true;
@@ -445,7 +461,6 @@ function Lost2() {
         Reset();
     }
 }
-
 function LostAll() {
     if (Lost3Life == false) {
         Lost3Life = true;
@@ -553,7 +568,6 @@ function invertColor(hexcolor) {
 // Leaderboard
 
 // High Scores
-const NO_OF_HIGH_SCORES = 7;
 const HIGH_SCORES = 'highScores';
 const highScoreString = localStorage.getItem(HIGH_SCORES);
 const highScores = JSON.parse(highScoreString) ?? [];
@@ -575,7 +589,6 @@ function saveHighScore() {
         localStorage.setItem(HIGH_SCORES, JSON.stringify(highScores));
     }
 };
-
 function showHighScores() {
     const highScores = JSON.parse(localStorage.getItem(HIGH_SCORES)) ?? [];
     const highScoreList = document.getElementById(HIGH_SCORES);
@@ -584,8 +597,11 @@ function showHighScores() {
         .map((score) => `<li>${score.timer} - ${score.username}`)
         .join('');
 }
-
 showHighScores();
+
+
+
+
 
 // DEV TOOLS
 function LEADRESET() {
@@ -594,8 +610,6 @@ function LEADRESET() {
     console.log('Leaderboard was reset');
 
 }
-
-
 
 MoveLeft = false;
 MoveRight = false;
