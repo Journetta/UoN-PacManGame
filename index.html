@@ -7,7 +7,12 @@
     <title>Maisy Jones - AS2</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+    
+    <!--Javascripts Seperated for easy Debugging-->
     <script src="script.js" defer></script>
+    <script src="js/controls.js" defer></script>
+    <script src="js/enemy.js" defer></script>
+    <script src="js/maze.js" defer></script>
 </head>
 
 <body>
@@ -43,10 +48,16 @@
     </main>
 
     <div class="lives">
+        <h1 id="livestag">Lives:</h1>
+        <ul>
+            <li class="livescolour" id="1"></li>
+            <li class="livescolour" id="2"></li>
+            <li class="livescolour" id="3"></li>
+        </ul>
     </div>
 
     <div class="score">
-        <h1>Score:</h1> 
+        <h1>Score:</h1>
         <p class="currentscore">0</p>
         <h1>Timer:</h1>
         <p id="currenttime">0</p>

@@ -1,3 +1,4 @@
+
 // variables for the rest of the javascript
 
 let upPressed = false;
@@ -33,29 +34,6 @@ let maze = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 
-// Player starting position
-let playerX, playerY;
-for (let y = 0; y < maze.length; y++) {
-    for (let x = 0; x < maze[y].length; x++) {
-        if (maze[y][x] === 2) {
-            playerX = x;
-            playerY = y;
-            break;
-        }
-    }
-}
-
-// Random enemy Position, calling player starting, to ensure they dont spawn next to the player
-while (placedEnemies < maxEnemies) {
-    const randomY = Math.floor(Math.random() * maze.length);
-    const randomX = Math.floor(Math.random() * maze[randomY].length);
-
-    const distance = Math.abs(randomX - playerX) + Math.abs(randomY - playerY);
-    if (maze[randomY][randomX] === 0 && distance >= 3) {
-        maze[randomY][randomX] = 3;
-        placedEnemies++;
-    }
-}
 
 // Maze Generation
 for (let y of maze) {
@@ -85,127 +63,6 @@ for (let y of maze) {
         main.appendChild(block);
     }
 }
-
-function LivesCreate() {
-    // create the lives via javascript
-    var livesContainer = document.querySelector('.lives');
-
-    var livetit = document.createElement('h1');
-    livetit.className = 'livestag';
-    livetit.textContent = 'Lives:';
-    livesContainer.appendChild(livetit);
-    var ul = document.createElement('ul');
-
-    for (var i = 1; i <= 3; i++) {
-        var li = document.createElement('li');
-        li.className = 'livescolour';
-        li.id = i.toString();
-        ul.appendChild(li);
-    }
-
-    livesContainer.appendChild(ul);
-
-}
-
-//Player movement
-function keyUp(event) {
-    if (event.key === 'ArrowUp') {
-        upPressed = false;
-    } else if (event.key === 'ArrowDown') {
-        downPressed = false;
-    } else if (event.key === 'ArrowLeft') {
-        leftPressed = false;
-    } else if (event.key === 'ArrowRight') {
-        rightPressed = false;
-    }
-}
-
-function keyDown(event) {
-    if (event.key === 'ArrowUp') {
-        upPressed = true;
-    } else if (event.key === 'ArrowDown') {
-        downPressed = true;
-    } else if (event.key === 'ArrowLeft') {
-        leftPressed = true;
-    } else if (event.key === 'ArrowRight') {
-        rightPressed = true;
-    }
-}
-
-// Onscreen Button Movement
-const leftButton = document.getElementById('lbttn');
-
-const upButton = document.getElementById('ubttn')
-
-const RightButton = document.getElementById('rbttn')
-
-const DownButton = document.getElementById('dbttn')
-
-leftButton.addEventListener('mousedown', () => {
-    downPressed = false;
-    upPressed = false;
-    rightPressed = false;
-    leftPressed = true;
-
-});
-
-leftButton.addEventListener('mouseup', () => {
-    downPressed = false;
-    upPressed = false;
-    rightPressed = false;
-    leftPressed = false;
-
-});
-
-RightButton.addEventListener('mousedown', () => {
-    downPressed = false;
-    upPressed = false;
-    rightPressed = true;
-    leftPressed = false;
-
-});
-
-RightButton.addEventListener('mouseup', () => {
-    downPressed = false;
-    upPressed = false;
-    rightPressed = false;
-    leftPressed = false;
-
-});
-
-upButton.addEventListener('mousedown', () => {
-    upPressed = true;
-    rightPressed = false;
-    leftPressed = false;
-    downPressed = false;
-
-});
-
-upButton.addEventListener('mouseup', () => {
-    upPressed = false;
-    rightPressed = false;
-    leftPressed = false;
-    downPressed = false;
-
-});
-
-DownButton.addEventListener('mousedown', () => {
-    downPressed = true;
-    upPressed = false;
-    rightPressed = false;
-    leftPressed = false;
-
-});
-
-DownButton.addEventListener('mouseup', () => {
-    downPressed = false;
-    upPressed = false;
-    rightPressed = false;
-    leftPressed = false;
-
-});
-
-
 const player = document.querySelector('#player');
 const playerMouth = player.querySelector('.mouth');
 let playerTop = 0;
@@ -494,25 +351,6 @@ function Refresh() {
         },
             500);
     }
-}
-
-
-// Restart After Gameover, Asking if they'd like to restart.
-function Restart() {
-    setTimeout(function () {
-        if (confirm("Score: " + tp + " Time: " + timer + "s | " + "Would you like to refresh?") == true) {
-            console.log("Refreshing!");
-            location.reload();
-        } else {
-            console.log("fine don't refresh");
-            h1 = document.getElementById("gameover");
-            h1.firstChild.nodeValue = "Game Over! Press F5 to Refresh";
-        }
-
-
-    },
-        500);
-
 }
 
 // The Rainbow Machine - With help from w3schools
