@@ -131,16 +131,10 @@ function keyDown(event) {
         rightPressed = true;
     }
 }
-
 // Onscreen Button Movement
+
+// ONSCREEN LEFT BUTTON MOVEMENT
 const leftButton = document.getElementById('lbttn');
-
-const upButton = document.getElementById('ubttn')
-
-const RightButton = document.getElementById('rbttn')
-
-const DownButton = document.getElementById('dbttn')
-
 leftButton.addEventListener('mousedown', () => {
     downPressed = false;
     upPressed = false;
@@ -148,7 +142,6 @@ leftButton.addEventListener('mousedown', () => {
     leftPressed = true;
 
 });
-
 leftButton.addEventListener('mouseup', () => {
     downPressed = false;
     upPressed = false;
@@ -157,6 +150,9 @@ leftButton.addEventListener('mouseup', () => {
 
 });
 
+
+// RIGHT BUTTON ONSCREEN MOVEMENT
+const RightButton = document.getElementById('rbttn')
 RightButton.addEventListener('mousedown', () => {
     downPressed = false;
     upPressed = false;
@@ -164,7 +160,6 @@ RightButton.addEventListener('mousedown', () => {
     leftPressed = false;
 
 });
-
 RightButton.addEventListener('mouseup', () => {
     downPressed = false;
     upPressed = false;
@@ -172,7 +167,11 @@ RightButton.addEventListener('mouseup', () => {
     leftPressed = false;
 
 });
+// END OF RIGHT BUTTON ONSCREEN MOVEMENT
 
+
+// UP BUTTON ONSCREEN MOVEMENT
+const upButton = document.getElementById('ubttn')
 upButton.addEventListener('mousedown', () => {
     upPressed = true;
     rightPressed = false;
@@ -181,6 +180,7 @@ upButton.addEventListener('mousedown', () => {
 
 });
 
+
 upButton.addEventListener('mouseup', () => {
     upPressed = false;
     rightPressed = false;
@@ -188,7 +188,11 @@ upButton.addEventListener('mouseup', () => {
     downPressed = false;
 
 });
+// END OF UP BUTTON ONSCREEN MOVEMENT
 
+
+// DOWN BUTTON ONSCREEN MOVEMENT
+const DownButton = document.getElementById('dbttn')
 DownButton.addEventListener('mousedown', () => {
     downPressed = true;
     upPressed = false;
@@ -196,7 +200,6 @@ DownButton.addEventListener('mousedown', () => {
     leftPressed = false;
 
 });
-
 DownButton.addEventListener('mouseup', () => {
     downPressed = false;
     upPressed = false;
@@ -204,6 +207,7 @@ DownButton.addEventListener('mouseup', () => {
     leftPressed = false;
 
 });
+// END OF DOWN BUTTON
 
 
 const player = document.querySelector('#player');
