@@ -4,12 +4,16 @@
 // IF YOU WOULD LIKE TO CHANGE THE CONDITIONS OF THE GAME, YOU MAY DO SO BELOW //
 
 // AMOUNT OF ENEMIES IN THE MAZE THAT U WANT
+// DEFAULT 2
 const maxEnemies = 2;
 // wingame Condition: you can edit this to change the win condition.
+// DEFAULT: 40
 const wincondition = 40;
 // CHANGE AMOUNT OF NAMES SHOWN ON SCOREBOARD
+// DEFAULT: 7
 const NO_OF_HIGH_SCORES = 7;
 // TIME LIMIT
+// Default: 120 seconds
 const maxtime = 120;
 // By Making These Values Higher, you make it harder to loose a life, by lowering these values it's easier to loose a life
 // Default: Life1 = 10, Life2 = 50, Life3 = 100 //
@@ -17,7 +21,7 @@ const Life1 = 10;
 const Life2 = 50;
 const Life3 = 100;
 
-// DO NOT EDIT
+
 // variables for the rest of the javascript
 let hasBeenCalled = false;
 // HOW MANY LIVES ARE LOST
