@@ -4,11 +4,13 @@ let leftPressed = false;
 let rightPressed = false;
 
 
+
 let rs = [];
 
 for (let i = 0; i < 17; i++) {
     rs[i] = Math.round(Math.random() * 1);
 }
+
 
 
 const main = document.querySelector('main');
@@ -82,6 +84,31 @@ for (let y of maze) {
 
         main.appendChild(block);
     }
+}
+
+function LivesCreate() {
+        // Create the parent div with class "lives"
+        var livesContainer = document.querySelector('.lives');
+
+        // Create the <h1> element
+        var livetit = document.createElement('h1');
+        livetit.className = 'livestag';
+        livetit.textContent = 'Lives:';
+        livesContainer.appendChild(livetit);
+        // Create the <ul> element
+        var ul = document.createElement('ul');
+
+        // Create three <li> elements with unique ids
+        for (var i = 1; i <= 3; i++) {
+            var li = document.createElement('li');
+            li.className = 'livescolour';
+            li.id = i.toString();
+            ul.appendChild(li);
+        }
+
+        // Append the <ul> to the parent div
+        livesContainer.appendChild(ul);
+
 }
 
 //Player movement
@@ -194,6 +221,7 @@ document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 
 function GameStarts() {
+    LivesCreate();
     console.log("Game Start! was pressed");
     document.getElementById("GameStarter").style.display = 'none';
     clock = setInterval(function () {
@@ -359,6 +387,7 @@ function killer() {
         }
         if (deaths > 100) {
             LostAll();
+            
 
         }
     }
@@ -368,12 +397,42 @@ let hasBeenCalled = false;
 let Lost1Life = false;
 let Lost2Life = false;
 let Lost3Life = false;
-
+let LostLife = false;
 
 function Reset() {
-    playerTop = 0;
-    playerLeft = 0;
+    if (player.classList.contains = ("hit")) {
+        stopplayer = setInterval(function () {
+            upPressed = false;
+            downPressed = false;
+            leftPressed = false;
+            rightPressed = false;
+            player.classList.remove = ('hit');
+        }, 1);
+    }
+
+
+    setTimeout(function () {
+        playerTop = 0;
+        playerLeft = 0;
+    }, 750)
+
+    setTimeout(function () {
+        clearInterval(stopplayer);
+        playerTop = 0;
+        playerLeft = 0;
+        playercolour.style.backgroundColor = selectedColor;
+
+    },
+        1500);
+
 }
+
+function ResetPlayerColour() {
+    playercolour.style.backgroundColor = selectedColor;
+    playercolour.style.backgroundColor = selectedColor;
+    playercolour.style.backgroundColor = selectedColor;
+}
+
 
 
 function Lost1() {
@@ -381,6 +440,7 @@ function Lost1() {
         Lost1Life = true;
         document.getElementById("1").style.display = "none";
         console.log("2 Lives Left!");
+        player.classList.add('hit');
         Reset();
     }
 }
@@ -390,6 +450,7 @@ function Lost2() {
         Lost2Life = true;
         document.getElementById("2").style.display = "none";
         console.log("1 Life Left!");
+        player.classList.add('hit');
         Reset();
     }
 }
@@ -397,6 +458,7 @@ function Lost2() {
 function LostAll() {
     if (Lost3Life == false) {
         Lost3Life = true;
+        player.classList.add = ("hit");
         document.getElementById("3").style.display = "none";
         console.log("you Died!");
         Refresh();
@@ -434,6 +496,11 @@ function Refresh() {
                 console.log("fine don't refresh");
                 h1 = document.getElementById("gameover");
                 h1.firstChild.nodeValue = "Game Over! Press F5 to Refresh";
+                document.removeEventListener('keydown', keyDown);
+                downPressed = false;
+                upPressed = false;
+                leftPressed = false;
+                rightPressed = false;            
             }
 
 
@@ -463,36 +530,30 @@ function Restart() {
 
 // The Rainbow Machine - With help from w3schools
 
+ 
 const colorPicker = document.getElementById('colorPicker');
 const playercolour = document.querySelector('#player');
-const life1 = document.getElementById('1');
-const life2 = document.getElementById('2');
-const life3 = document.getElementById('3');
 const enemyColour = document.querySelectorAll('.enemy');
-
 colorPicker.addEventListener('input', () => {
     const selectedColor = colorPicker.value;
     playercolour.style.backgroundColor = selectedColor;
-    life1.style.backgroundColor = selectedColor;
-    life2.style.backgroundColor = selectedColor;
-    life3.style.backgroundColor = selectedColor;
     invertColor(selectedColor);
 });
 
+function RevertPlayerColour() {
+        playercolour.style.backgroundColor = selectedColor;
+}
 
 
 function invertColor(hexcolor) {
-    // Convert hexadecimal color to RGB
     const r = parseInt(hexcolor.slice(1, 3), 16);
     const g = parseInt(hexcolor.slice(3, 5), 16);
     const b = parseInt(hexcolor.slice(5, 7), 16);
 
-    // Invert the RGB values
     const invertedR = 255 - r;
     const invertedG = 255 - g;
     const invertedB = 255 - b;
 
-    // Convert inverted RGB values back to hexadecimal
     const invertedhexcolor = `#${invertedR.toString(16).padStart(2, '0')}${invertedG.toString(16).padStart(2, '0')}${invertedB.toString(16).padStart(2, '0')}`;
 
     enemyColour[0].style.backgroundColor = invertedhexcolor;
