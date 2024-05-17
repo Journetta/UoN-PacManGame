@@ -1,17 +1,20 @@
+// variables for the rest of the javascript
+
 let upPressed = false;
 let downPressed = false;
 let leftPressed = false;
 let rightPressed = false;
+const maxEnemies = 2;
+let placedEnemies = 0;
+// wingame Condition: 
+let wingame = 40;
 
-
-
+// random wall / point 
 let rs = [];
 
 for (let i = 0; i < 17; i++) {
     rs[i] = Math.round(Math.random() * 1);
 }
-
-
 
 const main = document.querySelector('main');
 
@@ -43,16 +46,13 @@ for (let y = 0; y < maze.length; y++) {
 }
 
 // Random enemy Position, calling player starting, to ensure they dont spawn next to the player
-const maxEnemies = 2;
-let placedEnemies = 0;
-
 while (placedEnemies < maxEnemies) {
     const randomY = Math.floor(Math.random() * maze.length);
     const randomX = Math.floor(Math.random() * maze[randomY].length);
 
     const distance = Math.abs(randomX - playerX) + Math.abs(randomY - playerY);
     if (maze[randomY][randomX] === 0 && distance >= 3) {
-        maze[randomY][randomX] = 3; 
+        maze[randomY][randomX] = 3;
         placedEnemies++;
     }
 }
@@ -87,27 +87,23 @@ for (let y of maze) {
 }
 
 function LivesCreate() {
-        // Create the parent div with class "lives"
-        var livesContainer = document.querySelector('.lives');
+    // create the lives via javascript
+    var livesContainer = document.querySelector('.lives');
 
-        // Create the <h1> element
-        var livetit = document.createElement('h1');
-        livetit.className = 'livestag';
-        livetit.textContent = 'Lives:';
-        livesContainer.appendChild(livetit);
-        // Create the <ul> element
-        var ul = document.createElement('ul');
+    var livetit = document.createElement('h1');
+    livetit.className = 'livestag';
+    livetit.textContent = 'Lives:';
+    livesContainer.appendChild(livetit);
+    var ul = document.createElement('ul');
 
-        // Create three <li> elements with unique ids
-        for (var i = 1; i <= 3; i++) {
-            var li = document.createElement('li');
-            li.className = 'livescolour';
-            li.id = i.toString();
-            ul.appendChild(li);
-        }
+    for (var i = 1; i <= 3; i++) {
+        var li = document.createElement('li');
+        li.className = 'livescolour';
+        li.id = i.toString();
+        ul.appendChild(li);
+    }
 
-        // Append the <ul> to the parent div
-        livesContainer.appendChild(ul);
+    livesContainer.appendChild(ul);
 
 }
 
@@ -136,6 +132,7 @@ function keyDown(event) {
     }
 }
 
+// Onscreen Button Movement
 const leftButton = document.getElementById('lbttn');
 
 const upButton = document.getElementById('ubttn')
@@ -165,7 +162,7 @@ RightButton.addEventListener('mousedown', () => {
     upPressed = false;
     rightPressed = true;
     leftPressed = false;
-    
+
 });
 
 RightButton.addEventListener('mouseup', () => {
@@ -173,7 +170,7 @@ RightButton.addEventListener('mouseup', () => {
     upPressed = false;
     rightPressed = false;
     leftPressed = false;
-    
+
 });
 
 upButton.addEventListener('mousedown', () => {
@@ -181,7 +178,7 @@ upButton.addEventListener('mousedown', () => {
     rightPressed = false;
     leftPressed = false;
     downPressed = false;
-    
+
 });
 
 upButton.addEventListener('mouseup', () => {
@@ -189,7 +186,7 @@ upButton.addEventListener('mouseup', () => {
     rightPressed = false;
     leftPressed = false;
     downPressed = false;
-    
+
 });
 
 DownButton.addEventListener('mousedown', () => {
@@ -197,7 +194,7 @@ DownButton.addEventListener('mousedown', () => {
     upPressed = false;
     rightPressed = false;
     leftPressed = false;
-    
+
 });
 
 DownButton.addEventListener('mouseup', () => {
@@ -205,7 +202,7 @@ DownButton.addEventListener('mouseup', () => {
     upPressed = false;
     rightPressed = false;
     leftPressed = false;
-    
+
 });
 
 
@@ -298,8 +295,8 @@ function GameStarts() {
     }, 10);
 }
 
+// points
 let tp = 0;
-let wingame = 6;
 let timer = 0;
 
 function GainPoint() {
@@ -322,20 +319,15 @@ function GainPoint() {
             wingame--;
         }
     }
-    if (tp == 40) {
+    if (tp == wingame) {
         gameWin();
     }
 }
-console.log('The height of the screen = ' + window.innerHeight);
-console.log('The Width of the Screen is =' + window.innerWidth);
-width = window.innerWidth;
-height = window.innerHeight;
-
 
 deaths = 0
 GameWinCalled = false;
 
-
+// Game Win condition
 function gameWin() {
     if (GameWinCalled == false) {
         GameWinCalled = true;
@@ -363,7 +355,7 @@ function gameWin() {
 
 }
 
-// lowercase stuff
+// loose lifes
 function killer() {
     const position = player.getBoundingClientRect();
     const enemy = document.querySelectorAll('.enemy');
@@ -387,7 +379,7 @@ function killer() {
         }
         if (deaths > 100) {
             LostAll();
-            
+
 
         }
     }
@@ -399,6 +391,7 @@ let Lost2Life = false;
 let Lost3Life = false;
 let LostLife = false;
 
+// Reset Player to Starting Position
 function Reset() {
     if (player.classList.contains = ("hit")) {
         stopplayer = setInterval(function () {
@@ -427,14 +420,8 @@ function Reset() {
 
 }
 
-function ResetPlayerColour() {
-    playercolour.style.backgroundColor = selectedColor;
-    playercolour.style.backgroundColor = selectedColor;
-    playercolour.style.backgroundColor = selectedColor;
-}
 
-
-
+// Loosing Lives
 function Lost1() {
     if (Lost1Life == false) {
         Lost1Life = true;
@@ -500,7 +487,7 @@ function Refresh() {
                 downPressed = false;
                 upPressed = false;
                 leftPressed = false;
-                rightPressed = false;            
+                rightPressed = false;
             }
 
 
@@ -509,6 +496,8 @@ function Refresh() {
     }
 }
 
+
+// Restart After Gameover, Asking if they'd like to restart.
 function Restart() {
     setTimeout(function () {
         if (confirm("Score: " + tp + " Time: " + timer + "s | " + "Would you like to refresh?") == true) {
@@ -526,11 +515,8 @@ function Restart() {
 
 }
 
-
-
 // The Rainbow Machine - With help from w3schools
 
- 
 const colorPicker = document.getElementById('colorPicker');
 const playercolour = document.querySelector('#player');
 const enemyColour = document.querySelectorAll('.enemy');
@@ -541,9 +527,8 @@ colorPicker.addEventListener('input', () => {
 });
 
 function RevertPlayerColour() {
-        playercolour.style.backgroundColor = selectedColor;
+    playercolour.style.backgroundColor = selectedColor;
 }
-
 
 function invertColor(hexcolor) {
     const r = parseInt(hexcolor.slice(1, 3), 16);
@@ -596,10 +581,7 @@ function showHighScores() {
         .join('');
 }
 
-
-
 showHighScores();
-
 
 // DEV TOOLS
 function LEADRESET() {
